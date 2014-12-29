@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Emacs Initialization Script</title>
-<!-- 2014-12-28 Sun 23:48 -->
+<title>initialization</title>
+<!-- 2014-12-29 Mon 11:15 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Andrew Apollonsky" />
@@ -137,109 +137,124 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Emacs Initialization Script</h1>
+<h1 class="title">initialization</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Basic Settings</a>
+<li><a href="#sec-1">1. Emacs Initialization Script</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Identification</a></li>
-<li><a href="#sec-1-2">1.2. Diminish</a></li>
-<li><a href="#sec-1-3">1.3. Key Chord</a></li>
-<li><a href="#sec-1-4">1.4. Theme</a></li>
-<li><a href="#sec-1-5">1.5. Backups</a></li>
-<li><a href="#sec-1-6">1.6. History</a></li>
-<li><a href="#sec-1-7">1.7. Basic GUI</a></li>
-<li><a href="#sec-1-8">1.8. Encoding</a></li>
-<li><a href="#sec-1-9">1.9. Writing</a></li>
-<li><a href="#sec-1-10">1.10. Other</a></li>
-<li><a href="#sec-1-11">1.11. Generic Custom Functions</a></li>
+<li><a href="#sec-1-1">1.1. Basic Settings</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1. Identification</a></li>
+<li><a href="#sec-1-1-2">1.1.2. Diminish</a></li>
+<li><a href="#sec-1-1-3">1.1.3. Keybindings</a></li>
+<li><a href="#sec-1-1-4">1.1.4. Theme</a></li>
+<li><a href="#sec-1-1-5">1.1.5. Backups</a></li>
+<li><a href="#sec-1-1-6">1.1.6. History</a></li>
+<li><a href="#sec-1-1-7">1.1.7. Basic GUI</a></li>
+<li><a href="#sec-1-1-8">1.1.8. Browser</a></li>
+<li><a href="#sec-1-1-9">1.1.9. Encoding</a></li>
+<li><a href="#sec-1-1-10">1.1.10. Writing</a></li>
+<li><a href="#sec-1-1-11">1.1.11. Other</a></li>
+<li><a href="#sec-1-1-12">1.1.12. Generic Custom Functions</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. Interface</a>
+<li><a href="#sec-1-2">1.2. Interface</a>
 <ul>
-<li><a href="#sec-2-1">2.1. Helm</a></li>
-<li><a href="#sec-2-2">2.2. Winner-mode</a></li>
-<li><a href="#sec-2-3">2.3. Perspective</a></li>
-<li><a href="#sec-2-4">2.4. Windmove/Framemove</a></li>
-<li><a href="#sec-2-5">2.5. Buffer-move</a></li>
-<li><a href="#sec-2-6">2.6. God Mode</a></li>
-<li><a href="#sec-2-7">2.7. Projectile</a></li>
-<li><a href="#sec-2-8">2.8. Mode Line</a></li>
-<li><a href="#sec-2-9">2.9. Guide-Key</a></li>
+<li><a href="#sec-1-2-1">1.2.1. Helm</a></li>
+<li><a href="#sec-1-2-2">1.2.2. Winner-mode</a></li>
+<li><a href="#sec-1-2-3">1.2.3. Perspective</a></li>
+<li><a href="#sec-1-2-4">1.2.4. Windmove/Framemove</a></li>
+<li><a href="#sec-1-2-5">1.2.5. Buffer-move</a></li>
+<li><a href="#sec-1-2-6">1.2.6. God Mode</a></li>
+<li><a href="#sec-1-2-7">1.2.7. Projectile</a></li>
+<li><a href="#sec-1-2-8">1.2.8. Mode Line</a></li>
+<li><a href="#sec-1-2-9">1.2.9. Guide-Key</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. Visual</a>
+<li><a href="#sec-1-3">1.3. Visual</a>
 <ul>
-<li><a href="#sec-3-1">3.1. Volatile Highlights</a></li>
-<li><a href="#sec-3-2">3.2. Whitespace</a></li>
-<li><a href="#sec-3-3">3.3. Hi-Lock</a></li>
-<li><a href="#sec-3-4">3.4. Uniquify</a></li>
-<li><a href="#sec-3-5">3.5. Rainbow Delimiters</a></li>
-<li><a href="#sec-3-6">3.6. Line Numbers</a></li>
-<li><a href="#sec-3-7">3.7. Visual Line Mode</a></li>
+<li><a href="#sec-1-3-1">1.3.1. Volatile Highlights</a></li>
+<li><a href="#sec-1-3-2">1.3.2. Whitespace</a></li>
+<li><a href="#sec-1-3-3">1.3.3. Hi-Lock</a></li>
+<li><a href="#sec-1-3-4">1.3.4. Uniquify</a></li>
+<li><a href="#sec-1-3-5">1.3.5. Rainbow Delimiters.</a></li>
+<li><a href="#sec-1-3-6">1.3.6. Line Numbers</a></li>
+<li><a href="#sec-1-3-7">1.3.7. Visual Line Mode</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">4. Tool Major Modes</a>
+<li><a href="#sec-1-4">1.4. Tool Major Modes</a>
 <ul>
-<li><a href="#sec-4-1">4.1. Ztree</a></li>
-<li><a href="#sec-4-2">4.2. Org-Mode</a></li>
-<li><a href="#sec-4-3">4.3. Speedbar</a></li>
-<li><a href="#sec-4-4">4.4. Multi-term</a></li>
-<li><a href="#sec-4-5">4.5. ibuffer</a></li>
-<li><a href="#sec-4-6">4.6. IRC</a></li>
-<li><a href="#sec-4-7">4.7. mu4e</a></li>
-<li><a href="#sec-4-8">4.8. Undo Tree</a></li>
-<li><a href="#sec-4-9">4.9. Dired</a></li>
+<li><a href="#sec-1-4-1">1.4.1. Ztree</a></li>
+<li><a href="#sec-1-4-2">1.4.2. Org-Mode</a></li>
+<li><a href="#sec-1-4-3">1.4.3. Speedbar</a></li>
+<li><a href="#sec-1-4-4">1.4.4. Multi-term</a></li>
+<li><a href="#sec-1-4-5">1.4.5. ibuffer</a></li>
+<li><a href="#sec-1-4-6">1.4.6. IRC</a></li>
+<li><a href="#sec-1-4-7">1.4.7. mu4e</a></li>
+<li><a href="#sec-1-4-8">1.4.8. Undo Tree</a></li>
+<li><a href="#sec-1-4-9">1.4.9. Dired</a></li>
 </ul>
 </li>
-<li><a href="#sec-5">5. Multi-Language Tools</a>
+<li><a href="#sec-1-5">1.5. Multi-Language Tools</a>
 <ul>
-<li><a href="#sec-5-1">5.1. Semantic</a></li>
-<li><a href="#sec-5-2">5.2. Xcscope</a></li>
-<li><a href="#sec-5-3">5.3. Ggtags</a></li>
-<li><a href="#sec-5-4">5.4. Helm-Gtags</a></li>
-<li><a href="#sec-5-5">5.5. Syntax Checking</a></li>
-<li><a href="#sec-5-6">5.6. Silver-Searcher</a></li>
-<li><a href="#sec-5-7">5.7. Company Completion</a></li>
-<li><a href="#sec-5-8">5.8. Aggressive Indent</a></li>
+<li><a href="#sec-1-5-1">1.5.1. Semantic</a></li>
+<li><a href="#sec-1-5-2">1.5.2. Xcscope</a></li>
+<li><a href="#sec-1-5-3">1.5.3. Ggtags</a></li>
+<li><a href="#sec-1-5-4">1.5.4. Helm-Gtags</a></li>
+<li><a href="#sec-1-5-5">1.5.5. Syntax Checking</a></li>
+<li><a href="#sec-1-5-6">1.5.6. Silver-Searcher</a></li>
+<li><a href="#sec-1-5-7">1.5.7. Company Completion</a></li>
+<li><a href="#sec-1-5-8">1.5.8. Aggressive Indent</a></li>
 </ul>
 </li>
-<li><a href="#sec-6">6. Language-Specific Tools</a>
+<li><a href="#sec-1-6">1.6. Language-Specific Tools</a>
 <ul>
-<li><a href="#sec-6-1">6.1. C</a></li>
-<li><a href="#sec-6-2">6.2. Haskell</a></li>
-<li><a href="#sec-6-3">6.3. Lisp</a></li>
-<li><a href="#sec-6-4">6.4. Python</a></li>
-<li><a href="#sec-6-5">6.5. Latex</a></li>
-<li><a href="#sec-6-6">6.6. Generic Language Highlighting</a></li>
+<li><a href="#sec-1-6-1">1.6.1. C</a></li>
+<li><a href="#sec-1-6-2">1.6.2. Haskell</a></li>
+<li><a href="#sec-1-6-3">1.6.3. Lisp</a></li>
+<li><a href="#sec-1-6-4">1.6.4. Python</a></li>
+<li><a href="#sec-1-6-5">1.6.5. Latex</a></li>
+<li><a href="#sec-1-6-6">1.6.6. Other</a></li>
 </ul>
 </li>
-<li><a href="#sec-7">7. Text Processing Tools</a>
+<li><a href="#sec-1-7">1.7. Text Processing Tools</a>
 <ul>
-<li><a href="#sec-7-1">7.1. Visual-Regexp on Steroids</a></li>
-<li><a href="#sec-7-2">7.2. Semantic Expand Region</a></li>
-<li><a href="#sec-7-3">7.3. Clean aident</a></li>
-<li><a href="#sec-7-4">7.4. yasnippet</a></li>
-<li><a href="#sec-7-5">7.5. Abbreviations</a></li>
-<li><a href="#sec-7-6">7.6. Hippie Expansion</a></li>
-<li><a href="#sec-7-7">7.7. Ace Jump</a></li>
-<li><a href="#sec-7-8">7.8. Ace Zap</a></li>
-<li><a href="#sec-7-9">7.9. Multiple Cursors</a></li>
-<li><a href="#sec-7-10">7.10. Iedit</a></li>
-<li><a href="#sec-7-11">7.11. Version Control</a></li>
+<li><a href="#sec-1-7-1">1.7.1. Visual-Regexp on Steroids</a></li>
+<li><a href="#sec-1-7-2">1.7.2. Semantic Expand Region</a></li>
+<li><a href="#sec-1-7-3">1.7.3. Clean aident</a></li>
+<li><a href="#sec-1-7-4">1.7.4. yasnippet</a></li>
+<li><a href="#sec-1-7-5">1.7.5. Abbreviations</a></li>
+<li><a href="#sec-1-7-6">1.7.6. Hippie Expansion</a></li>
+<li><a href="#sec-1-7-7">1.7.7. Ace Jump</a></li>
+<li><a href="#sec-1-7-8">1.7.8. Ace Zap</a></li>
+<li><a href="#sec-1-7-9">1.7.9. Multiple Cursors</a></li>
+<li><a href="#sec-1-7-10">1.7.10. Iedit</a></li>
+<li><a href="#sec-1-7-11">1.7.11. Version Control</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Basic Settings</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> Emacs Initialization Script</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Identification</h3>
+<p>
+This file is an org-mode file that contains a lot of emacs-lisp code, along with some comments and whatnot regarding that code.This file is directly loaded by the emacs init.el, and provided that use-package is installed, an internet connection is available and package repositories are properly defined in init.el, everything here should install without user interaction on emacs startup.
+</p>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Basic Settings</h3>
 <div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Identification</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Basic me-details for emacs to know.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setf user-full-name <span style="color: #E6DB74;">"Andrew Apollonsky"</span><span style="color: #A1EFE4;">)</span>
@@ -248,11 +263,11 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Diminish</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> Diminish</h4>
+<div class="outline-text-4" id="text-1-1-2">
 <p>
-Allows for hiding of modes from the mode line. 
+Allows for hiding of modes from the mode line. This package is here generally called directly by the use-package command.
 </p>
 <div class="org-src-container">
 
@@ -262,11 +277,11 @@ Allows for hiding of modes from the mode line.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Key Chord</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> Keybindings</h4>
+<div class="outline-text-4" id="text-1-1-3">
 <p>
-Allows for more complicated key combinations for commands. 
+Allows for more complicated key combinations for commands, such as "z-d".
 </p>
 <div class="org-src-container">
 
@@ -277,14 +292,23 @@ Allows for more complicated key combinations for commands.
   <span style="color: #E6DB74;">(</span>key-chord-mode t<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
-</div>
-</div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Theme</h3>
-<div class="outline-text-3" id="text-1-4">
 <p>
-Add my theme directory and load one!
+Searches for unbound key combinations. Good to have, but not something you use often.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">unbound</span>
+  <span style="color: #FF9999;">:ensure</span> t<span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="section-number-4">1.1.4</span> Theme</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+Add my theme directory and load one! As of the time of writing, my theme apples-gray is a lightly modified monokai theme.
 </p>
 <div class="org-src-container">
 
@@ -295,9 +319,9 @@ Add my theme directory and load one!
 </div>
 </div>
 
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Backups</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-sec-1-1-5" class="outline-4">
+<h4 id="sec-1-1-5"><span class="section-number-4">1.1.5</span> Backups</h4>
+<div class="outline-text-4" id="text-1-1-5">
 <p>
 Make lots of backups, and store them in a centralized directory.
 </p>
@@ -313,9 +337,9 @@ Make lots of backups, and store them in a centralized directory.
 </div>
 </div>
 
-<div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6"><span class="section-number-3">1.6</span> History</h3>
-<div class="outline-text-3" id="text-1-6">
+<div id="outline-container-sec-1-1-6" class="outline-4">
+<h4 id="sec-1-1-6"><span class="section-number-4">1.1.6</span> History</h4>
+<div class="outline-text-4" id="text-1-1-6">
 <p>
 Save history files!
 </p>
@@ -347,11 +371,11 @@ And save your last place in files when editing!
 </div>
 </div>
 </div>
-<div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Basic GUI</h3>
-<div class="outline-text-3" id="text-1-7">
+<div id="outline-container-sec-1-1-7" class="outline-4">
+<h4 id="sec-1-1-7"><span class="section-number-4">1.1.7</span> Basic GUI</h4>
+<div class="outline-text-4" id="text-1-1-7">
 <p>
-Turn off unnecessary GUI elements.
+Turn off unnecessary GUI elements, such as the scrollbar, start screen, etc.
 </p>
 <div class="org-src-container">
 
@@ -366,11 +390,25 @@ Turn off unnecessary GUI elements.
 </div>
 </div>
 
-<div id="outline-container-sec-1-8" class="outline-3">
-<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Encoding</h3>
-<div class="outline-text-3" id="text-1-8">
+<div id="outline-container-sec-1-1-8" class="outline-4">
+<h4 id="sec-1-1-8"><span class="section-number-4">1.1.8</span> Browser</h4>
+<div class="outline-text-4" id="text-1-1-8">
 <p>
-UTF-8 is nice.
+Specify external web browser.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>setq browse-url-generic-program <span style="color: #E6DB74;">(</span>executable-find <span style="color: #E6DB74;">"conkeror"</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>setq browse-url-browser-function 'browse-url-generic<span style="color: #A1EFE4;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-1-9" class="outline-4">
+<h4 id="sec-1-1-9"><span class="section-number-4">1.1.9</span> Encoding</h4>
+<div class="outline-text-4" id="text-1-1-9">
+<p>
+UTF-8 is nice. 
 </p>
 <div class="org-src-container">
 
@@ -383,9 +421,9 @@ UTF-8 is nice.
 </div>
 </div>
 
-<div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9"><span class="section-number-3">1.9</span> Writing</h3>
-<div class="outline-text-3" id="text-1-9">
+<div id="outline-container-sec-1-1-10" class="outline-4">
+<h4 id="sec-1-1-10"><span class="section-number-4">1.1.10</span> Writing</h4>
+<div class="outline-text-4" id="text-1-1-10">
 <p>
 By default, sentences in emacs are expected to end with double spaces. Weird. 
 </p>
@@ -397,11 +435,11 @@ By default, sentences in emacs are expected to end with double spaces. Weird.
 </div>
 </div>
 
-<div id="outline-container-sec-1-10" class="outline-3">
-<h3 id="sec-1-10"><span class="section-number-3">1.10</span> Other</h3>
-<div class="outline-text-3" id="text-1-10">
+<div id="outline-container-sec-1-1-11" class="outline-4">
+<h4 id="sec-1-1-11"><span class="section-number-4">1.1.11</span> Other</h4>
+<div class="outline-text-4" id="text-1-1-11">
 <p>
-Buffers that should appear over the current buffer.
+Buffers that should appear over the current buffer when created, instead of in a new window.
 </p>
 <div class="org-src-container">
 
@@ -442,7 +480,7 @@ Case-insensitive name completion.
 </div>
 
 <p>
-These are fairly self-explanatory&#x2026;
+Mostly self-explanatory keybindings.
 </p>
 <div class="org-src-container">
 
@@ -462,9 +500,9 @@ These are fairly self-explanatory&#x2026;
 </div>
 </div>
 
-<div id="outline-container-sec-1-11" class="outline-3">
-<h3 id="sec-1-11"><span class="section-number-3">1.11</span> Generic Custom Functions</h3>
-<div class="outline-text-3" id="text-1-11">
+<div id="outline-container-sec-1-1-12" class="outline-4">
+<h4 id="sec-1-1-12"><span class="section-number-4">1.1.12</span> Generic Custom Functions</h4>
+<div class="outline-text-4" id="text-1-1-12">
 <p>
 Copies current file name to clipboard.
 </p>
@@ -518,6 +556,7 @@ Jump to matching parentheses, forward or back.
         <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>looking-at <span style="color: #E6DB74;">"[\]\)\}]"</span><span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span>forward-char<span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span>backward-sexp<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
         <span style="color: #66D9EF;">(</span><span style="color: #FD971F;">(</span>looking-back <span style="color: #E6DB74;">"[\[\(\{]"</span> 1<span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span>backward-char<span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span>forward-sexp<span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
         <span style="color: #66D9EF;">(</span>t nil<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+<span style="color: #A1EFE4;">(</span>key-chord-define-global <span style="color: #E6DB74;">"jp"</span>           'goto-match-paren<span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 
@@ -538,12 +577,12 @@ When called interactively with no active region, kill a single line instead.
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Interface</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Helm</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Interface</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Helm</h4>
+<div class="outline-text-4" id="text-1-2-1">
 <p>
 Helm is a powerful package framework allowing for rapid text-based narrowing of choices. Pretty much conflicts with ido.
 </p>
@@ -584,7 +623,7 @@ Helm is a powerful package framework allowing for rapid text-based narrowing of 
 </div>
 
 <p>
-Helm-swoop allows for fast navigation of lines in a document
+Helm-swoop allows for fast navigation of lines in a document. Similar to helm-occur.
 </p>
 <div class="org-src-container">
 
@@ -593,17 +632,17 @@ Helm-swoop allows for fast navigation of lines in a document
  <span style="color: #FF9999;">:config</span>
  <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span>
    <span style="color: #66D9EF;">(</span>define-key isearch-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"M-i"</span><span style="color: #FD971F;">)</span>     'helm-swoop-from-isearch<span style="color: #66D9EF;">)</span>
-   <span style="color: #66D9EF;">(</span>define-key helm-swoop-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"M-i"</span><span style="color: #FD971F;">)</span>       'helm-multi-swoop-all-from-helm-swoop<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
-   <span style="color: #9595B5;">;; </span><span style="color: #9595B5;">(global-set-key (kbd "C-c y q")            'helm-swoop))</span>
+   <span style="color: #66D9EF;">(</span>define-key helm-swoop-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"M-i"</span><span style="color: #FD971F;">)</span>       'helm-multi-swoop-all-from-helm-swoop<span style="color: #66D9EF;">)</span>
+   <span style="color: #66D9EF;">(</span>global-set-key <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-x y"</span><span style="color: #FD971F;">)</span>            'helm-swoop<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
 
 <span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Winner-mode</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> Winner-mode</h4>
+<div class="outline-text-4" id="text-1-2-2">
 <p>
 Go back and forth in buffer and window configuration history. A bit messy with helm, but worth it.
 </p>
@@ -618,11 +657,11 @@ Go back and forth in buffer and window configuration history. A bit messy with h
 </div>
 </div>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Perspective</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Perspective</h4>
+<div class="outline-text-4" id="text-1-2-3">
 <p>
-Control workspaces within emacs. Allows for multiple concurrent windows, switching between them, etc.
+Control workspaces within emacs. Allows for multiple concurrent windows, switching between them, etc. Highly recommended! 
 </p>
 <div class="org-src-container">
 
@@ -640,9 +679,9 @@ Control workspaces within emacs. Allows for multiple concurrent windows, switchi
 </div>
 </div>
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Windmove/Framemove</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Windmove/Framemove</h4>
+<div class="outline-text-4" id="text-1-2-4">
 <p>
 Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extends this functionality to frames. In org-mode, this only works when shift + arrows are not over headers.
 </p>
@@ -667,11 +706,11 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
 </div>
 </div>
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Buffer-move</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-sec-1-2-5" class="outline-4">
+<h4 id="sec-1-2-5"><span class="section-number-4">1.2.5</span> Buffer-move</h4>
+<div class="outline-text-4" id="text-1-2-5">
 <p>
-Easily swap the contents of two nearby buffer windows.
+Easily swap the contents of two nearby buffer windows. Good when some programs open buffers in the wrong window.
 </p>
 <div class="org-src-container">
 
@@ -687,11 +726,11 @@ Easily swap the contents of two nearby buffer windows.
 </div>
 </div>
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> God Mode</h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-sec-1-2-6" class="outline-4">
+<h4 id="sec-1-2-6"><span class="section-number-4">1.2.6</span> God Mode</h4>
+<div class="outline-text-4" id="text-1-2-6">
 <p>
-When activated, all commands treated as C- commands.
+When activated, all commands treated as C- commands. Don't really use it much.
 </p>
 <div class="org-src-container">
 
@@ -704,9 +743,9 @@ When activated, all commands treated as C- commands.
 </div>
 </div>
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Projectile</h3>
-<div class="outline-text-3" id="text-2-7">
+<div id="outline-container-sec-1-2-7" class="outline-4">
+<h4 id="sec-1-2-7"><span class="section-number-4">1.2.7</span> Projectile</h4>
+<div class="outline-text-4" id="text-1-2-7">
 <p>
 Used for navigating and otherwise controlling projects.
 </p>
@@ -730,11 +769,11 @@ Used for navigating and otherwise controlling projects.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2-8" class="outline-3">
-<h3 id="sec-2-8"><span class="section-number-3">2.8</span> Mode Line</h3>
-<div class="outline-text-3" id="text-2-8">
+<div id="outline-container-sec-1-2-8" class="outline-4">
+<h4 id="sec-1-2-8"><span class="section-number-4">1.2.8</span> Mode Line</h4>
+<div class="outline-text-4" id="text-1-2-8">
 <p>
-Makes my mode line pretty.
+Makes my mode line pretty. I tried smart mode line, but it doesn't work well with my theme and the text centering looks off. Powerline it is!
 </p>
 <div class="org-src-container">
 
@@ -747,11 +786,11 @@ Makes my mode line pretty.
 </div>
 </div>
 
-<div id="outline-container-sec-2-9" class="outline-3">
-<h3 id="sec-2-9"><span class="section-number-3">2.9</span> Guide-Key</h3>
-<div class="outline-text-3" id="text-2-9">
+<div id="outline-container-sec-1-2-9" class="outline-4">
+<h4 id="sec-1-2-9"><span class="section-number-4">1.2.9</span> Guide-Key</h4>
+<div class="outline-text-4" id="text-1-2-9">
 <p>
-Pops up with keyboard shortcut suggestions
+Pops up with keyboard shortcut suggestions after a short delay with an uncompleted key sequence.
 </p>
 <div class="org-src-container">
 
@@ -760,21 +799,21 @@ Pops up with keyboard shortcut suggestions
   <span style="color: #FF9999;">:diminish</span> guide-key-mode
   <span style="color: #FF9999;">:init</span>
   <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span>
-  <span style="color: #66D9EF;">(</span>setq guide-key/guide-key-sequence '<span style="color: #FD971F;">(</span><span style="color: #E6DB74;">"C-x"</span> <span style="color: #E6DB74;">"C-c s"</span> <span style="color: #E6DB74;">"C-c"</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span>setq guide-key/guide-key-sequence '<span style="color: #FD971F;">(</span><span style="color: #E6DB74;">"C-x"</span> <span style="color: #E6DB74;">"C-c s"</span> <span style="color: #E6DB74;">"C-c"</span> <span style="color: #E6DB74;">"C-h"</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span>
   <span style="color: #66D9EF;">(</span>guide-key-mode 1<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> Visual</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Volatile Highlights</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Visual</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> Volatile Highlights</h4>
+<div class="outline-text-4" id="text-1-3-1">
 <p>
-Highlight a recently-pasted region.
+Highlight a recently-pasted region. Highly recommended, no downside.
 </p>
 <div class="org-src-container">
 
@@ -788,11 +827,11 @@ Highlight a recently-pasted region.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Whitespace</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Whitespace</h4>
+<div class="outline-text-4" id="text-1-3-2">
 <p>
-Configure whitespace display.
+Configure whitespace display. Visible but subtle, that's what I like.
 </p>
 <div class="org-src-container">
 
@@ -814,12 +853,13 @@ Configure whitespace display.
 </div>
 </div>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Hi-Lock</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Hi-Lock</h4>
+<div class="outline-text-4" id="text-1-3-3">
 <p>
 Turn on hi-lock, allowing highlighting of symbols.
 </p>
+
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span>global-hi-lock-mode 1<span style="color: #A1EFE4;">)</span>
@@ -827,9 +867,12 @@ Turn on hi-lock, allowing highlighting of symbols.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Uniquify</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4"><span class="section-number-4">1.3.4</span> Uniquify</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Generally emacs names multiple buffers with the same file by appending &lt;2&gt;, etc to them. Uniquify instead includes their directory name. This greatly helps distinguish between the two+!
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">require</span> '<span style="color: #AE81FF;">uniquify</span><span style="color: #A1EFE4;">)</span>
@@ -843,11 +886,11 @@ Turn on hi-lock, allowing highlighting of symbols.
 </div>
 </div>
 
-<div id="outline-container-sec-3-5" class="outline-3">
-<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Rainbow Delimiters</h3>
-<div class="outline-text-3" id="text-3-5">
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5"><span class="section-number-4">1.3.5</span> Rainbow Delimiters.</h4>
+<div class="outline-text-4" id="text-1-3-5">
 <p>
-Color different matching sets of parentheses in different colors.
+Color different matching sets of parentheses in different colors. Which colors, is defined in the theme.
 </p>
 <div class="org-src-container">
 
@@ -859,11 +902,11 @@ Color different matching sets of parentheses in different colors.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3-6" class="outline-3">
-<h3 id="sec-3-6"><span class="section-number-3">3.6</span> Line Numbers</h3>
-<div class="outline-text-3" id="text-3-6">
+<div id="outline-container-sec-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6"><span class="section-number-4">1.3.6</span> Line Numbers</h4>
+<div class="outline-text-4" id="text-1-3-6">
 <p>
-Only show line numbers in code-related major modes.
+Only show line numbers in code-related major modes. They look really bad in org-mode, and are just unnecessary in a terminal.
 </p>
 <div class="org-src-container">
 
@@ -881,9 +924,9 @@ Only show line numbers in code-related major modes.
 </div>
 </div>
 
-<div id="outline-container-sec-3-7" class="outline-3">
-<h3 id="sec-3-7"><span class="section-number-3">3.7</span> Visual Line Mode</h3>
-<div class="outline-text-3" id="text-3-7">
+<div id="outline-container-sec-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7"><span class="section-number-4">1.3.7</span> Visual Line Mode</h4>
+<div class="outline-text-4" id="text-1-3-7">
 <p>
 Causes line-wrapping, and remaps C-a and C-e to jump to visual lines, not logical lines.
 </p>
@@ -896,14 +939,14 @@ Causes line-wrapping, and remaps C-a and C-e to jump to visual lines, not logica
 </div>
 </div>
 </div>
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> Tool Major Modes</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Ztree</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Tool Major Modes</h3>
+<div class="outline-text-3" id="text-1-4">
+</div><div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> Ztree</h4>
+<div class="outline-text-4" id="text-1-4-1">
 <p>
-Tools for navigating and comparing directories in tree-form.
+Tools for navigating and comparing directories in tree-form. I like to pretend that I can replace tools like Beyond Compare with this, and maybe I can.
 </p>
 <div class="org-src-container">
 
@@ -917,11 +960,11 @@ Tools for navigating and comparing directories in tree-form.
 </div>
 </div>
 
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Org-Mode</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> Org-Mode</h4>
+<div class="outline-text-4" id="text-1-4-2">
 <p>
-A lot of important stuff here.
+A lot of important stuff here. Syntax highlighting for HTML export (uses theme colors, and theme is dark, so that doesn't work very well), syntax highlighting for PDF export (a lot better), custom document type, and some other stuff.
 </p>
 <div class="org-src-container">
 
@@ -994,11 +1037,11 @@ A lot of important stuff here.
 </div>
 </div>
 
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Speedbar</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-sec-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> Speedbar</h4>
+<div class="outline-text-4" id="text-1-4-3">
 <p>
-IDE-like tab can display directory or semantic code information.
+IDE-like tab can display directory or semantic code information. Useful to have, but I haven't used it in a while. 
 </p>
 <div class="org-src-container">
 
@@ -1011,11 +1054,11 @@ IDE-like tab can display directory or semantic code information.
 </div>
 </div>
 
-<div id="outline-container-sec-4-4" class="outline-3">
-<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Multi-term</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-sec-1-4-4" class="outline-4">
+<h4 id="sec-1-4-4"><span class="section-number-4">1.4.4</span> Multi-term</h4>
+<div class="outline-text-4" id="text-1-4-4">
 <p>
-Allows for multiple separate terminals to be open.
+Allows for multiple separate terminals to be open. Usually a toss-up, whether I want to use this or eshell.
 </p>
 <div class="org-src-container">
 
@@ -1030,9 +1073,9 @@ Allows for multiple separate terminals to be open.
 </div>
 </div>
 
-<div id="outline-container-sec-4-5" class="outline-3">
-<h3 id="sec-4-5"><span class="section-number-3">4.5</span> ibuffer</h3>
-<div class="outline-text-3" id="text-4-5">
+<div id="outline-container-sec-1-4-5" class="outline-4">
+<h4 id="sec-1-4-5"><span class="section-number-4">1.4.5</span> ibuffer</h4>
+<div class="outline-text-4" id="text-1-4-5">
 <p>
 Major mode for manipulating buffers. Create custom categories, save them.
 </p>
@@ -1068,11 +1111,11 @@ Major mode for manipulating buffers. Create custom categories, save them.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-4-6" class="outline-3">
-<h3 id="sec-4-6"><span class="section-number-3">4.6</span> IRC</h3>
-<div class="outline-text-3" id="text-4-6">
+<div id="outline-container-sec-1-4-6" class="outline-4">
+<h4 id="sec-1-4-6"><span class="section-number-4">1.4.6</span> IRC</h4>
+<div class="outline-text-4" id="text-1-4-6">
 <p>
-IRC major-mode.
+IRC major-mode. It's supposed to be useful, right?
 </p>
 <div class="org-src-container">
 
@@ -1081,13 +1124,13 @@ IRC major-mode.
 </pre>
 </div>
 <p>
-Mail client. Doesn't qyute work yet.
+Mail client. Doesn't quite work yet.
 </p>
 </div>
 </div>
-<div id="outline-container-sec-4-7" class="outline-3">
-<h3 id="sec-4-7"><span class="section-number-3">4.7</span> mu4e</h3>
-<div class="outline-text-3" id="text-4-7">
+<div id="outline-container-sec-1-4-7" class="outline-4">
+<h4 id="sec-1-4-7"><span class="section-number-4">1.4.7</span> mu4e</h4>
+<div class="outline-text-4" id="text-1-4-7">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">mu4e</span>
@@ -1163,9 +1206,12 @@ Mail client. Doesn't qyute work yet.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-4-8" class="outline-3">
-<h3 id="sec-4-8"><span class="section-number-3">4.8</span> Undo Tree</h3>
-<div class="outline-text-3" id="text-4-8">
+<div id="outline-container-sec-1-4-8" class="outline-4">
+<h4 id="sec-1-4-8"><span class="section-number-4">1.4.8</span> Undo Tree</h4>
+<div class="outline-text-4" id="text-1-4-8">
+<p>
+Treats your undo history like a tree, so no information is lost with undos and redos. Also allows you to navigate this tree!
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">undo-tree</span>
@@ -1181,11 +1227,11 @@ Mail client. Doesn't qyute work yet.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-4-9" class="outline-3">
-<h3 id="sec-4-9"><span class="section-number-3">4.9</span> Dired</h3>
-<div class="outline-text-3" id="text-4-9">
+<div id="outline-container-sec-1-4-9" class="outline-4">
+<h4 id="sec-1-4-9"><span class="section-number-4">1.4.9</span> Dired</h4>
+<div class="outline-text-4" id="text-1-4-9">
 <p>
-Dired! An emacs file manager.
+Dired! An emacs file manager. I'm getting better at using it. 
 </p>
 <div class="org-src-container">
 
@@ -1198,12 +1244,12 @@ Dired! An emacs file manager.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> Multi-Language Tools</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Semantic</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Multi-Language Tools</h3>
+<div class="outline-text-3" id="text-1-5">
+</div><div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> Semantic</h4>
+<div class="outline-text-4" id="text-1-5-1">
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">semantic</span>
@@ -1260,11 +1306,11 @@ Dired! An emacs file manager.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2"><span class="section-number-3">5.2</span> Xcscope</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> Xcscope</h4>
+<div class="outline-text-4" id="text-1-5-2">
 <p>
-Cscope indexes and then allows for fast navigation of C projects, with limited support for other languages. This is my favorite such tool, because despite being dull and only working well with C, it has a nice interface.
+Cscope is program that indexes and then allows for fast navigation of C projects, with limited support for other languages. This is my favorite such tool, because despite being dull and only working well with C, this emacs module, xcscope, has a nice interface.
 </p>
 <div class="org-src-container">
 
@@ -1276,15 +1322,16 @@ Cscope indexes and then allows for fast navigation of C projects, with limited s
    <span style="color: #66D9EF;">(</span>add-hook 'c++-mode-hook 'cscope-minor-mode<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>setq cscope-initial-directory <span style="color: #E6DB74;">"/vobs/"</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
  <span style="color: #FF9999;">:config</span>
+ <span style="color: #E6DB74;">(</span>global-set-key <span style="color: #66D9EF;">(</span>kbd <span style="color: #E6DB74;">"C-c z"</span><span style="color: #66D9EF;">)</span>                'cscope-minor-mode<span style="color: #E6DB74;">)</span>
  <span style="color: #E6DB74;">(</span>define-key cscope-minor-mode-keymap <span style="color: #66D9EF;">(</span>kbd <span style="color: #E6DB74;">"C-c s q"</span><span style="color: #66D9EF;">)</span>    'cscope-pop-mark<span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-5-3" class="outline-3">
-<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Ggtags</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3"><span class="section-number-4">1.5.3</span> Ggtags</h4>
+<div class="outline-text-4" id="text-1-5-3">
 <p>
 Gtags, or GNU Global, is a more comprehensive tagging program, theoretically supporting more languages and whatnot. Ggtags is an emacs package for interfacing with it.
 </p>
@@ -1300,7 +1347,8 @@ Gtags, or GNU Global, is a more comprehensive tagging program, theoretically sup
      <span style="color: #FD971F;">(</span>eshell-command 
       <span style="color: #A6E22E;">(</span>format <span style="color: #E6DB74;">"find %s -type f -name \"*.[ch]\" | etags -"</span> dir-name<span style="color: #A6E22E;">)</span><span style="color: #FD971F;">)</span><span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span>
  <span style="color: #FF9999;">:config</span>
- <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span> 
+ <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span>
+   <span style="color: #66D9EF;">(</span>global-set-key <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c x"</span><span style="color: #FD971F;">)</span>              'ggtags-mode<span style="color: #66D9EF;">)</span> 
    <span style="color: #66D9EF;">(</span>define-key ggtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c s g"</span><span style="color: #FD971F;">)</span>             'ggtags-find-tag-dwim<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>define-key ggtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c s d"</span><span style="color: #FD971F;">)</span>             'ggtags-find-definition<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>define-key ggtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c s f"</span><span style="color: #FD971F;">)</span>             'ggtags-find-file<span style="color: #66D9EF;">)</span>
@@ -1312,11 +1360,11 @@ Gtags, or GNU Global, is a more comprehensive tagging program, theoretically sup
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4"><span class="section-number-3">5.4</span> Helm-Gtags</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-sec-1-5-4" class="outline-4">
+<h4 id="sec-1-5-4"><span class="section-number-4">1.5.4</span> Helm-Gtags</h4>
+<div class="outline-text-4" id="text-1-5-4">
 <p>
-Helm interface for gtags. I think I prefer ggtags.
+Helm interface for gtags. I think I prefer ggtags. Though xcscope is better. If only either of these two properly aligned search results with each other!
 </p>
 <div class="org-src-container">
 
@@ -1335,6 +1383,7 @@ Helm interface for gtags. I think I prefer ggtags.
  <span style="color: #FF9999;">:config</span>
  <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span>
    <span style="color: #9595B5;">;; </span><span style="color: #9595B5;">helm-gtags</span>
+   <span style="color: #66D9EF;">(</span>global-set-key <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c c"</span><span style="color: #FD971F;">)</span>              'helm-gtags-mode<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>define-key helm-gtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c s v"</span><span style="color: #FD971F;">)</span> 'helm-gtags-select<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>define-key helm-gtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c s g"</span><span style="color: #FD971F;">)</span> 'helm-gtags-dwim<span style="color: #66D9EF;">)</span>
    <span style="color: #66D9EF;">(</span>define-key helm-gtags-mode-map <span style="color: #FD971F;">(</span>kbd <span style="color: #E6DB74;">"C-c &lt;"</span><span style="color: #FD971F;">)</span>           'helm-gtags-previous-history<span style="color: #66D9EF;">)</span>
@@ -1351,11 +1400,11 @@ Helm interface for gtags. I think I prefer ggtags.
 </div>
 </div>
 
-<div id="outline-container-sec-5-5" class="outline-3">
-<h3 id="sec-5-5"><span class="section-number-3">5.5</span> Syntax Checking</h3>
-<div class="outline-text-3" id="text-5-5">
+<div id="outline-container-sec-1-5-5" class="outline-4">
+<h4 id="sec-1-5-5"><span class="section-number-4">1.5.5</span> Syntax Checking</h4>
+<div class="outline-text-4" id="text-1-5-5">
 <p>
-Performs syntac checking and complains if errors occur.
+Performs syntax checking and complains if errors occur.
 </p>
 <div class="org-src-container">
 
@@ -1374,9 +1423,9 @@ Performs syntac checking and complains if errors occur.
 </div>
 </div>
 
-<div id="outline-container-sec-5-6" class="outline-3">
-<h3 id="sec-5-6"><span class="section-number-3">5.6</span> Silver-Searcher</h3>
-<div class="outline-text-3" id="text-5-6">
+<div id="outline-container-sec-1-5-6" class="outline-4">
+<h4 id="sec-1-5-6"><span class="section-number-4">1.5.6</span> Silver-Searcher</h4>
+<div class="outline-text-4" id="text-1-5-6">
 <p>
 Interfaces to Ag, a non-indexing code searcher, like grep or awk but faster. Requires that Ag be installed.
 </p>
@@ -1393,11 +1442,11 @@ Interfaces to Ag, a non-indexing code searcher, like grep or awk but faster. Req
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5-7" class="outline-3">
-<h3 id="sec-5-7"><span class="section-number-3">5.7</span> Company Completion</h3>
-<div class="outline-text-3" id="text-5-7">
+<div id="outline-container-sec-1-5-7" class="outline-4">
+<h4 id="sec-1-5-7"><span class="section-number-4">1.5.7</span> Company Completion</h4>
+<div class="outline-text-4" id="text-1-5-7">
 <p>
-Company Code completion framework. I dislike automatic completion, so it's instead bound to a key chord.
+Company Code completion framework. I dislike automatic completion, so it's instead bound to a key chord. Doesn't get in my way so much.
 </p>
 <div class="org-src-container">
 
@@ -1413,9 +1462,9 @@ Company Code completion framework. I dislike automatic completion, so it's inste
 </div>
 </div>
 </div>
-<div id="outline-container-sec-5-8" class="outline-3">
-<h3 id="sec-5-8"><span class="section-number-3">5.8</span> Aggressive Indent</h3>
-<div class="outline-text-3" id="text-5-8">
+<div id="outline-container-sec-1-5-8" class="outline-4">
+<h4 id="sec-1-5-8"><span class="section-number-4">1.5.8</span> Aggressive Indent</h4>
+<div class="outline-text-4" id="text-1-5-8">
 <p>
 Keeps your code continuously indented as you type. Visually distracting, but useful.
 </p>
@@ -1430,14 +1479,14 @@ Keeps your code continuously indented as you type. Visually distracting, but use
 </div>
 </div>
 </div>
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> Language-Specific Tools</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1"><span class="section-number-3">6.1</span> C</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Language-Specific Tools</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="section-number-4">1.6.1</span> C</h4>
+<div class="outline-text-4" id="text-1-6-1">
 <p>
-Set indentation size to 4 by default
+Set indentation size to 4 by default. Otherwise emacs auto-indents my c code odd.
 </p>
 <div class="org-src-container">
 
@@ -1447,9 +1496,9 @@ Set indentation size to 4 by default
 </div>
 </div>
 </div>
-<div id="outline-container-sec-6-2" class="outline-3">
-<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Haskell</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="section-number-4">1.6.2</span> Haskell</h4>
+<div class="outline-text-4" id="text-1-6-2">
 <p>
 Basic mode, with indentation and whatnot.
 </p>
@@ -1463,7 +1512,7 @@ Basic mode, with indentation and whatnot.
 </div>
 
 <p>
-Compiler integration
+Haskell mode integrates with GHC, the primary haskell compiler.
 </p>
 <div class="org-src-container">
 
@@ -1483,11 +1532,11 @@ Compiler integration
 </div>
 </div>
 
-<div id="outline-container-sec-6-3" class="outline-3">
-<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Lisp</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3"><span class="section-number-4">1.6.3</span> Lisp</h4>
+<div class="outline-text-4" id="text-1-6-3">
 <p>
-SLIME
+SLIME, the preferred LISP mode to write code in.
 </p>
 <div class="org-src-container">
 
@@ -1520,9 +1569,12 @@ Paredit allows for weird, parentheses-based editing. Don't quite have the hang o
 </div>
 </div>
 
-<div id="outline-container-sec-6-4" class="outline-3">
-<h3 id="sec-6-4"><span class="section-number-3">6.4</span> Python</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4"><span class="section-number-4">1.6.4</span> Python</h4>
+<div class="outline-text-4" id="text-1-6-4">
+<p>
+Jedi is an autocompletion framework for python. Interfaces to company-mode (I think).
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">jedi</span>
@@ -1534,11 +1586,11 @@ Paredit allows for weird, parentheses-based editing. Don't quite have the hang o
 </div>
 </div>
 
-<div id="outline-container-sec-6-5" class="outline-3">
-<h3 id="sec-6-5"><span class="section-number-3">6.5</span> Latex</h3>
-<div class="outline-text-3" id="text-6-5">
+<div id="outline-container-sec-1-6-5" class="outline-4">
+<h4 id="sec-1-6-5"><span class="section-number-4">1.6.5</span> Latex</h4>
+<div class="outline-text-4" id="text-1-6-5">
 <p>
-Auctex is a latex minor mode. Preview allows latex snippets to be shown in-line.
+Auctex is a latex minor mode. If only I had more reasons to use it.
 </p>
 <div class="org-src-container">
 
@@ -1548,9 +1600,12 @@ Auctex is a latex minor mode. Preview allows latex snippets to be shown in-line.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-6-6" class="outline-3">
-<h3 id="sec-6-6"><span class="section-number-3">6.6</span> Generic Language Highlighting</h3>
-<div class="outline-text-3" id="text-6-6">
+<div id="outline-container-sec-1-6-6" class="outline-4">
+<h4 id="sec-1-6-6"><span class="section-number-4">1.6.6</span> Other</h4>
+<div class="outline-text-4" id="text-1-6-6">
+<p>
+This should provide highlighting to a ton of different miscellaneous syntaxes. I don't know, never used any of them.
+</p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #A1EFE4;">(</span><span style="color: #FF9999;">use-package</span> <span style="color: #AE81FF;">generic-x</span><span style="color: #A1EFE4;">)</span>
@@ -1559,14 +1614,14 @@ Auctex is a latex minor mode. Preview allows latex snippets to be shown in-line.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> Text Processing Tools</h2>
-<div class="outline-text-2" id="text-7">
-</div><div id="outline-container-sec-7-1" class="outline-3">
-<h3 id="sec-7-1"><span class="section-number-3">7.1</span> Visual-Regexp on Steroids</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Text Processing Tools</h3>
+<div class="outline-text-3" id="text-1-7">
+</div><div id="outline-container-sec-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1"><span class="section-number-4">1.7.1</span> Visual-Regexp on Steroids</h4>
+<div class="outline-text-4" id="text-1-7-1">
 <p>
-This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head once in a while.
+This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
 </p>
 <div class="org-src-container">
 
@@ -1583,11 +1638,11 @@ This package does two things: provides visual feedback to regexp-tools like repl
 </div>
 </div>
 
-<div id="outline-container-sec-7-2" class="outline-3">
-<h3 id="sec-7-2"><span class="section-number-3">7.2</span> Semantic Expand Region</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-sec-1-7-2" class="outline-4">
+<h4 id="sec-1-7-2"><span class="section-number-4">1.7.2</span> Semantic Expand Region</h4>
+<div class="outline-text-4" id="text-1-7-2">
 <p>
-Allows for the semantic expansion and contraction of the region.
+Allows for the semantic expansion and contraction of the region. Highly recommended!
 </p>
 <div class="org-src-container">
 
@@ -1601,11 +1656,11 @@ Allows for the semantic expansion and contraction of the region.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-3" class="outline-3">
-<h3 id="sec-7-3"><span class="section-number-3">7.3</span> Clean aident</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-sec-1-7-3" class="outline-4">
+<h4 id="sec-1-7-3"><span class="section-number-4">1.7.3</span> Clean aident</h4>
+<div class="outline-text-4" id="text-1-7-3">
 <p>
-Remove whitespace after RETing 2nd time in a row
+Remove whitespace after RETing 2nd time in a row. I think it's a problem. Not quite sure.
 </p>
 <div class="org-src-container">
 
@@ -1616,9 +1671,9 @@ Remove whitespace after RETing 2nd time in a row
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-4" class="outline-3">
-<h3 id="sec-7-4"><span class="section-number-3">7.4</span> yasnippet</h3>
-<div class="outline-text-3" id="text-7-4">
+<div id="outline-container-sec-1-7-4" class="outline-4">
+<h4 id="sec-1-7-4"><span class="section-number-4">1.7.4</span> yasnippet</h4>
+<div class="outline-text-4" id="text-1-7-4">
 <p>
 Snippeting!
 </p>
@@ -1633,9 +1688,9 @@ Snippeting!
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-5" class="outline-3">
-<h3 id="sec-7-5"><span class="section-number-3">7.5</span> Abbreviations</h3>
-<div class="outline-text-3" id="text-7-5">
+<div id="outline-container-sec-1-7-5" class="outline-4">
+<h4 id="sec-1-7-5"><span class="section-number-4">1.7.5</span> Abbreviations</h4>
+<div class="outline-text-4" id="text-1-7-5">
 <p>
 Abbreviations! 
 </p>
@@ -1654,9 +1709,9 @@ Abbreviations!
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-6" class="outline-3">
-<h3 id="sec-7-6"><span class="section-number-3">7.6</span> Hippie Expansion</h3>
-<div class="outline-text-3" id="text-7-6">
+<div id="outline-container-sec-1-7-6" class="outline-4">
+<h4 id="sec-1-7-6"><span class="section-number-4">1.7.6</span> Hippie Expansion</h4>
+<div class="outline-text-4" id="text-1-7-6">
 <p>
 Searches for similar phrases in history, open buffers, abbreviations, etc, and cycles through them.
 </p>
@@ -1670,9 +1725,9 @@ Searches for similar phrases in history, open buffers, abbreviations, etc, and c
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-7" class="outline-3">
-<h3 id="sec-7-7"><span class="section-number-3">7.7</span> Ace Jump</h3>
-<div class="outline-text-3" id="text-7-7">
+<div id="outline-container-sec-1-7-7" class="outline-4">
+<h4 id="sec-1-7-7"><span class="section-number-4">1.7.7</span> Ace Jump</h4>
+<div class="outline-text-4" id="text-1-7-7">
 <p>
 Allows for jumping around based on the first letter of characters, words and lines.
 </p>
@@ -1693,11 +1748,11 @@ Allows for jumping around based on the first letter of characters, words and lin
 </div>
 </div>
 
-<div id="outline-container-sec-7-8" class="outline-3">
-<h3 id="sec-7-8"><span class="section-number-3">7.8</span> Ace Zap</h3>
-<div class="outline-text-3" id="text-7-8">
+<div id="outline-container-sec-1-7-8" class="outline-4">
+<h4 id="sec-1-7-8"><span class="section-number-4">1.7.8</span> Ace Zap</h4>
+<div class="outline-text-4" id="text-1-7-8">
 <p>
-Zap up to a character, ace-jump style.
+Zap up to a character, ace-jump style. dwim goes to first instance, regular lets you specify.
 </p>
 <div class="org-src-container">
 
@@ -1705,16 +1760,17 @@ Zap up to a character, ace-jump style.
   <span style="color: #FF9999;">:ensure</span> ace-jump-zap
   <span style="color: #FF9999;">:config</span>
   <span style="color: #E6DB74;">(</span><span style="color: #FF9999;">progn</span>
-    <span style="color: #66D9EF;">(</span>key-chord-define-global <span style="color: #E6DB74;">"jz"</span>           'ace-jump-zap-up-to-char-dwim<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
+    <span style="color: #66D9EF;">(</span>key-chord-define-global <span style="color: #E6DB74;">"jd"</span>           'ace-jump-zap-up-to-char-dwim<span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>key-chord-define-global <span style="color: #E6DB74;">"jz"</span>           'ace-jump-zap-up-to-char<span style="color: #66D9EF;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A1EFE4;">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-9" class="outline-3">
-<h3 id="sec-7-9"><span class="section-number-3">7.9</span> Multiple Cursors</h3>
-<div class="outline-text-3" id="text-7-9">
+<div id="outline-container-sec-1-7-9" class="outline-4">
+<h4 id="sec-1-7-9"><span class="section-number-4">1.7.9</span> Multiple Cursors</h4>
+<div class="outline-text-4" id="text-1-7-9">
 <p>
-Powerful plugin that generates multiple cursors, allowing for easy rectangular editing, application of functions at several places at once, etc.
+Powerful plugin that generates multiple cursors, allowing for easy rectangular editing, application of functions at several places at once, etc. Fun to play around with, faster and more immediate than macros.
 </p>
 <div class="org-src-container">
 
@@ -1736,11 +1792,11 @@ Powerful plugin that generates multiple cursors, allowing for easy rectangular e
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-10" class="outline-3">
-<h3 id="sec-7-10"><span class="section-number-3">7.10</span> Iedit</h3>
-<div class="outline-text-3" id="text-7-10">
+<div id="outline-container-sec-1-7-10" class="outline-4">
+<h4 id="sec-1-7-10"><span class="section-number-4">1.7.10</span> Iedit</h4>
+<div class="outline-text-4" id="text-1-7-10">
 <p>
-Fits a similar niche to multiple cursors, but slightly less powerful. Faster, though. Why not?
+Fits a similar niche to multiple cursors, but slightly less powerful. Faster, though; noticeable when modifying many instances of the same variable simultaneously. Why not?
 </p>
 <div class="org-src-container">
 
@@ -1750,11 +1806,11 @@ Fits a similar niche to multiple cursors, but slightly less powerful. Faster, th
 </div>
 </div>
 </div>
-<div id="outline-container-sec-7-11" class="outline-3">
-<h3 id="sec-7-11"><span class="section-number-3">7.11</span> Version Control</h3>
-<div class="outline-text-3" id="text-7-11">
+<div id="outline-container-sec-1-7-11" class="outline-4">
+<h4 id="sec-1-7-11"><span class="section-number-4">1.7.11</span> Version Control</h4>
+<div class="outline-text-4" id="text-1-7-11">
 <p>
-Magit - the best interface for git. When it works.
+Magit - the best interface for git. When it works. It doesn't at work, which makes me sad.
 </p>
 <div class="org-src-container">
 
@@ -1771,9 +1827,10 @@ Magit - the best interface for git. When it works.
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Apollonsky</p>
-<p class="date">Created: 2014-12-28 Sun 23:48</p>
+<p class="date">Created: 2014-12-29 Mon 11:15</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

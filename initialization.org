@@ -2,20 +2,24 @@
 #+LATEX_HEADER: \usepackage{etoolbox}
 #+LATEX_HEADER: \AtBeginEnvironment{minted}{\fontsize{8.5}{8.5}\selectfont}
 * Emacs Initialization Script
+This file is an org-mode file that contains a lot of emacs-lisp code, along with some comments and whatnot regarding that code.This file is directly loaded by the emacs init.el, and provided that use-package is installed, an internet connection is available and package repositories are properly defined in init.el, everything here should install without user interaction on emacs startup.
 ** Basic Settings
 *** Identification
+Basic me-details for emacs to know.
 #+BEGIN_SRC emacs-lisp
 (setf user-full-name "Andrew Apollonsky")
 (setf user-mail-address "Anapollonsky@gmail.com")
 #+END_SRC
 *** Diminish
-Allows for hiding of modes from the mode line. 
+
+Allows for hiding of modes from the mode line. This package is here generally called directly by the use-package command.
 #+BEGIN_SRC emacs-lisp
 (use-package diminish
   :ensure t)
 #+END_SRC
-*** Key Chord
-Allows for more complicated key combinations for commands. 
+*** Keybindings
+
+Allows for more complicated key combinations for commands, such as "z-d".
 #+BEGIN_SRC emacs-lisp
 (use-package key-chord
   :ensure t
@@ -24,8 +28,13 @@ Allows for more complicated key combinations for commands.
   (key-chord-mode t))
 #+END_SRC
 
+Searches for unbound key combinations. Good to have, but not something you use often.
+#+BEGIN_SRC emacs-lisp
+  (use-package unbound
+    :ensure t)
+#+END_SRC
 *** Theme
-Add my theme directory and load one!
+Add my theme directory and load one! As of the time of writing, my theme apples-gray is a lightly modified monokai theme.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'apples-gray t)
@@ -65,7 +74,7 @@ And save your last place in files when editing!
 
 #+END_SRC
 *** Basic GUI
-Turn off unnecessary GUI elements.
+Turn off unnecessary GUI elements, such as the scrollbar, start screen, etc.
 #+BEGIN_SRC emacs-lisp
 (when window-system
   (tooltip-mode -1)
@@ -75,8 +84,14 @@ Turn off unnecessary GUI elements.
 (setq inhibit-startup-screen t)
 #+END_SRC
 
+*** Browser
+Specify external web browser.
+#+BEGIN_SRC emacs-lisp
+(setq browse-url-generic-program (executable-find "conkeror"))
+(setq browse-url-browser-function 'browse-url-generic)
+#+END_SRC
 *** Encoding
-UTF-8 is nice.
+UTF-8 is nice. 
 #+BEGIN_SRC emacs-lisp
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -91,7 +106,7 @@ By default, sentences in emacs are expected to end with double spaces. Weird.
 #+END_SRC
 
 *** Other
-Buffers that should appear over the current buffer.
+Buffers that should appear over the current buffer when created, instead of in a new window.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'same-window-buffer-names '*undo-tree*)
 #+END_SRC
@@ -116,7 +131,7 @@ Case-insensitive name completion.
       read-file-name-completion-ignore-case t)
 #+END_SRC
 
-These are fairly self-explanatory...
+Mostly self-explanatory keybindings.
 #+BEGIN_SRC emacs-lisp
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-c h"))
@@ -174,6 +189,7 @@ Jump to matching parentheses, forward or back.
         ((looking-at "[\]\)\}]") (forward-char) (backward-sexp))
         ((looking-back "[\[\(\{]" 1) (backward-char) (forward-sexp))
         (t nil)))
+(key-chord-define-global "jp"		'goto-match-paren)
 #+END_SRC
 
 When called interactively with no active region, kill a single line instead.
@@ -225,15 +241,15 @@ Helm is a powerful package framework allowing for rapid text-based narrowing of 
 
 #+END_SRC
 
-Helm-swoop allows for fast navigation of lines in a document
+Helm-swoop allows for fast navigation of lines in a document. Similar to helm-occur.
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
    :ensure t
    :config
    (progn
      (define-key isearch-mode-map (kbd "M-i")     'helm-swoop-from-isearch)
-     (define-key helm-swoop-map (kbd "M-i")       'helm-multi-swoop-all-from-helm-swoop))
-     ;; (global-set-key (kbd "C-c y q")            'helm-swoop))
+     (define-key helm-swoop-map (kbd "M-i")       'helm-multi-swoop-all-from-helm-swoop)
+     (global-set-key (kbd "C-x y")            'helm-swoop))
 
   )
 
@@ -248,7 +264,7 @@ Go back and forth in buffer and window configuration history. A bit messy with h
 #+END_SRC
 
 *** Perspective
-Control workspaces within emacs. Allows for multiple concurrent windows, switching between them, etc.
+Control workspaces within emacs. Allows for multiple concurrent windows, switching between them, etc. Highly recommended! 
 #+BEGIN_SRC emacs-lisp
   (use-package perspective
     :ensure t
@@ -281,7 +297,7 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
 #+END_SRC
 
 *** Buffer-move
-Easily swap the contents of two nearby buffer windows.
+Easily swap the contents of two nearby buffer windows. Good when some programs open buffers in the wrong window.
 #+BEGIN_SRC emacs-lisp
   (use-package buffer-move
     :ensure t
@@ -294,7 +310,7 @@ Easily swap the contents of two nearby buffer windows.
 #+END_SRC
 
 *** God Mode
-When activated, all commands treated as C- commands.
+When activated, all commands treated as C- commands. Don't really use it much.
 #+BEGIN_SRC emacs-lisp
 (use-package god-mode
   :ensure t
@@ -322,7 +338,7 @@ Used for navigating and otherwise controlling projects.
 
 #+END_SRC
 *** Mode Line
-Makes my mode line pretty.
+Makes my mode line pretty. I tried smart mode line, but it doesn't work well with my theme and the text centering looks off. Powerline it is!
 #+BEGIN_SRC emacs-lisp
 (use-package powerline
   :ensure t
@@ -332,19 +348,19 @@ Makes my mode line pretty.
 #+END_SRC
 
 *** Guide-Key
-Pops up with keyboard shortcut suggestions
+Pops up with keyboard shortcut suggestions after a short delay with an uncompleted key sequence.
 #+BEGIN_SRC emacs-lisp
 (use-package guide-key
   :ensure t
   :diminish guide-key-mode
   :init
   (progn
-  (setq guide-key/guide-key-sequence '("C-x" "C-c s" "C-c"))
+  (setq guide-key/guide-key-sequence '("C-x" "C-c s" "C-c" "C-h"))
   (guide-key-mode 1)))  
 #+END_SRC
 ** Visual
 *** Volatile Highlights
-Highlight a recently-pasted region.
+Highlight a recently-pasted region. Highly recommended, no downside.
 #+BEGIN_SRC emacs-lisp
   (use-package volatile-highlights
     :ensure t
@@ -354,7 +370,7 @@ Highlight a recently-pasted region.
 #+END_SRC
 
 *** Whitespace
-Configure whitespace display.
+Configure whitespace display. Visible but subtle, that's what I like.
 #+BEGIN_SRC emacs-lisp
   (use-package whitespace
     :ensure t
@@ -373,10 +389,12 @@ Configure whitespace display.
 
 *** Hi-Lock
 Turn on hi-lock, allowing highlighting of symbols.
+
 #+BEGIN_SRC emacs-lisp
 (global-hi-lock-mode 1)
 #+END_SRC
 *** Uniquify
+Generally emacs names multiple buffers with the same file by appending <2>, etc to them. Uniquify instead includes their directory name. This greatly helps distinguish between the two+!
 #+BEGIN_SRC emacs-lisp
   (require 'uniquify)
   (setq
@@ -387,8 +405,8 @@ Turn on hi-lock, allowing highlighting of symbols.
 
 #+END_SRC
 
-*** Rainbow Delimiters
-Color different matching sets of parentheses in different colors.
+*** Rainbow Delimiters.
+Color different matching sets of parentheses in different colors. Which colors, is defined in the theme.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
@@ -397,7 +415,7 @@ Color different matching sets of parentheses in different colors.
 
 #+END_SRC
 *** Line Numbers
-Only show line numbers in code-related major modes.
+Only show line numbers in code-related major modes. They look really bad in org-mode, and are just unnecessary in a terminal.
 #+BEGIN_SRC emacs-lisp
   (use-package nlinum
     :ensure t
@@ -419,7 +437,7 @@ Causes line-wrapping, and remaps C-a and C-e to jump to visual lines, not logica
 #+END_SRC
 ** Tool Major Modes
 *** Ztree
-Tools for navigating and comparing directories in tree-form.
+Tools for navigating and comparing directories in tree-form. I like to pretend that I can replace tools like Beyond Compare with this, and maybe I can.
 #+BEGIN_SRC emacs-lisp
   (use-package ztree-dir
     :ensure ztree)
@@ -429,7 +447,7 @@ Tools for navigating and comparing directories in tree-form.
 #+END_SRC
 
 *** Org-Mode
-A lot of important stuff here.
+A lot of important stuff here. Syntax highlighting for HTML export (uses theme colors, and theme is dark, so that doesn't work very well), syntax highlighting for PDF export (a lot better), custom document type, and some other stuff.
 #+BEGIN_SRC emacs-lisp
     (use-package org
       :config
@@ -498,7 +516,7 @@ A lot of important stuff here.
 #+END_SRC
 
 *** Speedbar
-IDE-like tab can display directory or semantic code information.
+IDE-like tab can display directory or semantic code information. Useful to have, but I haven't used it in a while. 
 #+BEGIN_SRC emacs-lisp
   (use-package speedbar
     :ensure t)
@@ -507,7 +525,7 @@ IDE-like tab can display directory or semantic code information.
 #+END_SRC
 
 *** Multi-term
-Allows for multiple separate terminals to be open.
+Allows for multiple separate terminals to be open. Usually a toss-up, whether I want to use this or eshell.
 #+BEGIN_SRC emacs-lisp
   (use-package multi-term
     :ensure t
@@ -551,13 +569,13 @@ Major mode for manipulating buffers. Create custom categories, save them.
 
 #+END_SRC
 *** IRC
-IRC major-mode.
+IRC major-mode. It's supposed to be useful, right?
 #+BEGIN_SRC emacs-lisp
 (use-package erc
   :ensure t)
 
 #+END_SRC
-Mail client. Doesn't qyute work yet.
+Mail client. Doesn't quite work yet.
 *** mu4e
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
@@ -632,6 +650,7 @@ Mail client. Doesn't qyute work yet.
 
 #+END_SRC
 *** Undo Tree
+Treats your undo history like a tree, so no information is lost with undos and redos. Also allows you to navigate this tree!
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :ensure t
@@ -645,7 +664,7 @@ Mail client. Doesn't qyute work yet.
 
 #+END_SRC
 *** Dired
-Dired! An emacs file manager.
+Dired! An emacs file manager. I'm getting better at using it. 
 #+BEGIN_SRC emacs-lisp
 (use-package dired+
   :ensure t
@@ -709,7 +728,7 @@ Dired! An emacs file manager.
 
 #+END_SRC
 *** Xcscope
-Cscope indexes and then allows for fast navigation of C projects, with limited support for other languages. This is my favorite such tool, because despite being dull and only working well with C, it has a nice interface.
+Cscope is program that indexes and then allows for fast navigation of C projects, with limited support for other languages. This is my favorite such tool, because despite being dull and only working well with C, this emacs module, xcscope, has a nice interface.
 #+BEGIN_SRC emacs-lisp
   (use-package xcscope
    :ensure t
@@ -719,6 +738,7 @@ Cscope indexes and then allows for fast navigation of C projects, with limited s
      (add-hook 'c++-mode-hook 'cscope-minor-mode)
      (setq cscope-initial-directory "/vobs/"))
    :config
+   (global-set-key (kbd "C-c z")		'cscope-minor-mode)
    (define-key cscope-minor-mode-keymap (kbd "C-c s q")    'cscope-pop-mark))
 
 #+END_SRC
@@ -736,7 +756,8 @@ Gtags, or GNU Global, is a more comprehensive tagging program, theoretically sup
        (eshell-command 
         (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name))))
    :config
-   (progn 
+   (progn
+     (global-set-key (kbd "C-c x")		'ggtags-mode) 
      (define-key ggtags-mode-map (kbd "C-c s g")             'ggtags-find-tag-dwim)
      (define-key ggtags-mode-map (kbd "C-c s d")             'ggtags-find-definition)
      (define-key ggtags-mode-map (kbd "C-c s f")             'ggtags-find-file)
@@ -746,7 +767,7 @@ Gtags, or GNU Global, is a more comprehensive tagging program, theoretically sup
      (define-key ggtags-mode-map (kbd "C-c s t")             'ggtags-grep)))
 #+END_SRC
 *** Helm-Gtags
-Helm interface for gtags. I think I prefer ggtags.
+Helm interface for gtags. I think I prefer ggtags. Though xcscope is better. If only either of these two properly aligned search results with each other!
 #+BEGIN_SRC emacs-lisp
   (use-package helm-gtags
    :ensure t
@@ -763,6 +784,7 @@ Helm interface for gtags. I think I prefer ggtags.
    :config
    (progn
      ;; helm-gtags
+     (global-set-key (kbd "C-c c")		'helm-gtags-mode)
      (define-key helm-gtags-mode-map (kbd "C-c s v") 'helm-gtags-select)
      (define-key helm-gtags-mode-map (kbd "C-c s g") 'helm-gtags-dwim)
      (define-key helm-gtags-mode-map (kbd "C-c <")           'helm-gtags-previous-history)
@@ -778,7 +800,7 @@ Helm interface for gtags. I think I prefer ggtags.
 #+END_SRC
 
 *** Syntax Checking
-Performs syntac checking and complains if errors occur.
+Performs syntax checking and complains if errors occur.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-tip 
     :ensure t)
@@ -804,7 +826,7 @@ Interfaces to Ag, a non-indexing code searcher, like grep or awk but faster. Req
      (global-set-key (kbd "C-c y q") 'helm-ag-pop-stack)))
 #+END_SRC
 *** Company Completion
-Company Code completion framework. I dislike automatic completion, so it's instead bound to a key chord.
+Company Code completion framework. I dislike automatic completion, so it's instead bound to a key chord. Doesn't get in my way so much.
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
@@ -825,7 +847,7 @@ Keeps your code continuously indented as you type. Visually distracting, but use
 #+END_SRC
 ** Language-Specific Tools
 *** C
-Set indentation size to 4 by default
+Set indentation size to 4 by default. Otherwise emacs auto-indents my c code odd.
 #+BEGIN_SRC emacs-lisp
 (setq c-default-style "linux"
       c-basic-offset 4)
@@ -839,7 +861,7 @@ Basic mode, with indentation and whatnot.
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 #+END_SRC
 
-Compiler integration
+Haskell mode integrates with GHC, the primary haskell compiler.
 #+BEGIN_SRC emacs-lisp
   (use-package ghc
     :ensure t
@@ -855,7 +877,7 @@ Compiler integration
 #+END_SRC
 
 *** Lisp
-SLIME
+SLIME, the preferred LISP mode to write code in.
 #+BEGIN_SRC emacs-lisp
 (use-package slime-autoloads
   :ensure slime
@@ -880,6 +902,7 @@ Paredit allows for weird, parentheses-based editing. Don't quite have the hang o
 #+END_SRC
 
 *** Python
+Jedi is an autocompletion framework for python. Interfaces to company-mode (I think).
 #+BEGIN_SRC emacs-lisp
 (use-package jedi
   :ensure t
@@ -888,20 +911,21 @@ Paredit allows for weird, parentheses-based editing. Don't quite have the hang o
 #+END_SRC
 
 *** Latex
-Auctex is a latex minor mode. Preview allows latex snippets to be shown in-line.
+Auctex is a latex minor mode. If only I had more reasons to use it.
 #+BEGIN_SRC emacs-lisp
 (use-package tex
   :ensure auctex)
 
 #+END_SRC
-*** Generic Language Highlighting
+*** Other
+This should provide highlighting to a ton of different miscellaneous syntaxes. I don't know, never used any of them.
 #+BEGIN_SRC emacs-lisp
 (use-package generic-x)
 
 #+END_SRC
 ** Text Processing Tools
 *** Visual-Regexp on Steroids
-This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head once in a while.
+This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
 #+BEGIN_SRC emacs-lisp
   (use-package visual-regexp-steroids
     :ensure t
@@ -914,7 +938,7 @@ This package does two things: provides visual feedback to regexp-tools like repl
 #+END_SRC
 
 *** Semantic Expand Region
-Allows for the semantic expansion and contraction of the region.
+Allows for the semantic expansion and contraction of the region. Highly recommended!
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
@@ -924,7 +948,7 @@ Allows for the semantic expansion and contraction of the region.
       (global-set-key (kbd "C-,")         'er/contract-region)))
 #+END_SRC
 *** Clean aident
-Remove whitespace after RETing 2nd time in a row
+Remove whitespace after RETing 2nd time in a row. I think it's a problem. Not quite sure.
 #+BEGIN_SRC emacs-lisp
 (use-package clean-aindent-mode
   :init
@@ -955,7 +979,7 @@ Abbreviations!
 
 #+END_SRC
 *** Hippie Expansion
-    Searches for similar phrases in history, open buffers, abbreviations, etc, and cycles through them.
+Searches for similar phrases in history, open buffers, abbreviations, etc, and cycles through them.
     #+BEGIN_SRC emacs-lisp
 (use-package hippie-exp
   :ensure t
@@ -979,16 +1003,17 @@ Allows for jumping around based on the first letter of characters, words and lin
 #+END_SRC
 
 *** Ace Zap
-Zap up to a character, ace-jump style.
+Zap up to a character, ace-jump style. dwim goes to first instance, regular lets you specify.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-zap
     :ensure ace-jump-zap
     :config
     (progn
-      (key-chord-define-global "jz"           'ace-jump-zap-up-to-char-dwim)))
+      (key-chord-define-global "jd"           'ace-jump-zap-up-to-char-dwim)
+      (key-chord-define-global "jz"           'ace-jump-zap-up-to-char)))
 #+END_SRC
 *** Multiple Cursors
-Powerful plugin that generates multiple cursors, allowing for easy rectangular editing, application of functions at several places at once, etc.
+Powerful plugin that generates multiple cursors, allowing for easy rectangular editing, application of functions at several places at once, etc. Fun to play around with, faster and more immediate than macros.
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
@@ -1007,14 +1032,14 @@ Powerful plugin that generates multiple cursors, allowing for easy rectangular e
 
 #+END_SRC
 *** Iedit
-Fits a similar niche to multiple cursors, but slightly less powerful. Faster, though. Why not?
+Fits a similar niche to multiple cursors, but slightly less powerful. Faster, though; noticeable when modifying many instances of the same variable simultaneously. Why not?
 #+BEGIN_SRC emacs-lisp
 (use-package iedit
   :ensure t)
 
 #+END_SRC
 *** Version Control
-Magit - the best interface for git. When it works.
+Magit - the best interface for git. When it works. It doesn't at work, which makes me sad.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
