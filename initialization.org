@@ -1,7 +1,6 @@
 #+LATEX_HEADER: \usepackage[margin=.75in]{geometry}
 #+LATEX_HEADER: \usepackage{etoolbox}
 #+LATEX_HEADER: \AtBeginEnvironment{minted}{\fontsize{8.5}{8.5}\selectfont}
-#+LaTeX_CLASS: code-article
 * Emacs Initialization Script
 ** Basic Settings
 *** Identification
