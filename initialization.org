@@ -806,7 +806,7 @@ Performs syntax checking and complains if errors occur.
     :ensure t)
 
   (use-package flycheck
-   :diminish company-mode
+   :diminish flycheck-mode
    :ensure t
    :init
    (progn
@@ -835,7 +835,7 @@ Company Code completion framework. I dislike automatic completion, so it's inste
   (progn 
     (global-company-mode)
     (setq company-idle-delay nil)
-    (key-chord-define-global "zx"		'company-complete)))    
+    (key-chord-define-global "zc"		'company-complete)))    
 #+END_SRC
 *** Aggressive Indent
 Keeps your code continuously indented as you type. Visually distracting, but useful.
@@ -857,6 +857,7 @@ Basic mode, with indentation and whatnot.
 #+BEGIN_SRC emacs-lisp
 (use-package haskell-mode
   :ensure t
+  :diminish haskell-indentation-mode
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 #+END_SRC
