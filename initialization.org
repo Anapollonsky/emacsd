@@ -511,7 +511,6 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
     :ensure t)
 #+END_SRC
 
-
 *** Multi-term
 Allows for multiple separate terminals to be open. 
 #+BEGIN_SRC emacs-lisp
@@ -661,6 +660,12 @@ An emacs file manager.
   (setq dired-dwim-target t)) ;; Copy to other dired buffer by default
 
 #+END_SRC
+Sunrise Commander is a dired-derived mode for quickly working with two directories at once.
+#+BEGIN_SRC emacs-lisp
+(push "~/.emacs.d/lisp/sunrise-commander" load-path)
+(use-package sunrise-commander)
+
+#+END_SRC
 *** Powershell
 Run powershell from windows.
 #+BEGIN_SRC emacs-lisp
@@ -802,14 +807,9 @@ Performs syntax checking and complains if errors occur.
   (use-package flycheck-tip 
     :ensure t
     :config
-<<<<<<< HEAD
     (progn
       '(custom-set-variables
         '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
-=======
-    (custom-set-variables
-     '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
->>>>>>> refs/remotes/origin/master
 
   (use-package flycheck
    :diminish flycheck-mode
@@ -1054,9 +1054,5 @@ Magit - the best interface for git. When it works.
     :init
     (progn
       (autoload 'magit-status "magit" nil t)
-<<<<<<< HEAD
       (define-key global-map (kbd "C-c g")                        'magit-status)))
-=======
-      (define-key global-map (kbd "C-c g")                        'magit-status)))f
->>>>>>> refs/remotes/origin/master
 #+END_SRC

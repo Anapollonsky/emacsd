@@ -1,0 +1,3 @@
+[submodule "lisp/sunrise-commander"]
+	path = lisp/sunrise-commander
+	url = https://github.com/escherdragon/sunrise-commander.git
