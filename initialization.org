@@ -802,9 +802,14 @@ Performs syntax checking and complains if errors occur.
   (use-package flycheck-tip 
     :ensure t
     :config
+<<<<<<< HEAD
     (progn
       '(custom-set-variables
         '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
+=======
+    (custom-set-variables
+     '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+>>>>>>> refs/remotes/origin/master
 
   (use-package flycheck
    :diminish flycheck-mode
@@ -1049,5 +1054,9 @@ Magit - the best interface for git. When it works.
     :init
     (progn
       (autoload 'magit-status "magit" nil t)
+<<<<<<< HEAD
       (define-key global-map (kbd "C-c g")                        'magit-status)))
+=======
+      (define-key global-map (kbd "C-c g")                        'magit-status)))f
+>>>>>>> refs/remotes/origin/master
 #+END_SRC
