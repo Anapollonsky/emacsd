@@ -673,6 +673,14 @@ Run powershell from windows.
       (use-package powershell
         :ensure t))
 #+END_SRC
+*** Pandoc
+Pandoc-mode interfaces with pandoc, and allows for file conversions to formats both common and esoteric.
+#+BEGIN_SRC emacs-lisp
+(use-package pandoc-mode
+  :ensure t)
+
+#+END_SRC
+
 ** Multi-Language Tools
 *** Semantic
 Smart syntax analyxer, used for code navigation and code completion.
