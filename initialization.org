@@ -1059,5 +1059,5 @@ Magit - the best interface for git. When it works.
     :init
     (progn
       (autoload 'magit-status "magit" nil t)
-      (define-key global-map (kbd "C-c g")                        'magit-status)))f
+      (define-key global-map (kbd "C-c g")                        'magit-status)))
 #+END_SRC
