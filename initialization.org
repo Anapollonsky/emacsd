@@ -354,17 +354,6 @@ Prettifies the mode-line.
   
 #+END_SRC
 
-*** Guide-Key
-Pops up with keyboard shortcut suggestions after a short delay with an uncompleted key sequence.
-#+BEGIN_SRC emacs-lisp
-(use-package guide-key
-  :ensure t
-  :diminish guide-key-mode
-  :init
-  (progn
-  (setq guide-key/guide-key-sequence '("C-x" "C-c s" "C-c" "C-h"))
-  (guide-key-mode 1)))  
-#+END_SRC
 ** Visual
 *** Volatile Highlights
 Highlight a recently-pasted region. 
@@ -522,7 +511,6 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
     :ensure t)
 #+END_SRC
 
-
 *** Multi-term
 Allows for multiple separate terminals to be open. 
 #+BEGIN_SRC emacs-lisp
@@ -672,6 +660,12 @@ An emacs file manager.
   (setq dired-dwim-target t)) ;; Copy to other dired buffer by default
 
 #+END_SRC
+Sunrise Commander is a dired-derived mode for quickly working with two directories at once.
+#+BEGIN_SRC emacs-lisp
+(push "~/.emacs.d/lisp/sunrise-commander" load-path)
+(use-package sunrise-commander)
+
+#+END_SRC
 *** Powershell
 Run powershell from windows.
 #+BEGIN_SRC emacs-lisp
@@ -813,8 +807,9 @@ Performs syntax checking and complains if errors occur.
   (use-package flycheck-tip 
     :ensure t
     :config
-    (custom-set-variables
-     '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+    (progn
+      '(custom-set-variables
+        '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
 
   (use-package flycheck
    :diminish flycheck-mode
