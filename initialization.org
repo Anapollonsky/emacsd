@@ -1084,7 +1084,7 @@ Magit - the best interface for git. When it works.
 #+END_SRC
 VC for other things.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x g c")            'vc-next-action)
+(global-set-key (kbd "C-x g a")            'vc-next-action)
 #+END_SRC
 
 Git-Timemachine allows for easy iteration through past versions of a file.
@@ -1092,16 +1092,32 @@ Git-Timemachine allows for easy iteration through past versions of a file.
 (use-package git-timemachine
   :ensure t
   :config
-  (global-set-key (kbd "C-x g t")            'git-timemachine))
+  (global-set-key (kbd "C-x g m")            'git-timemachine))
 #+END_SRC
 
 Git-gutter shows modifications since the last commit with pluses and minuses on each line.
 #+BEGIN_SRC emacs-lisp
 (use-package git-gutter+
   :ensure t
+  :diminish git-gutter+-mode
   :config
   (progn
-    (git-gutter+-mode 1)))
+    (git-gutter+-mode 1)
+
+    ;;; Jump between hunks
+    (define-key git-gutter+-mode-map (kbd "C-x g n") 'git-gutter+-next-hunk)
+    (define-key git-gutter+-mode-map (kbd "C-x g p") 'git-gutter+-previous-hunk)
+
+    ;;; Act on hunks
+    (define-key git-gutter+-mode-map (kbd "C-x g v") 'git-gutter+-show-hunk)
+    (define-key git-gutter+-mode-map (kbd "C-x g r") 'git-gutter+-revert-hunks)
+    ;; Stage hunk at point.
+    ;; If region is active, stage all hunk lines within the region.
+    (define-key git-gutter+-mode-map (kbd "C-x g t") 'git-gutter+-stage-hunks)
+    (define-key git-gutter+-mode-map (kbd "C-x g c") 'git-gutter+-commit)
+    (define-key git-gutter+-mode-map (kbd "C-x g C") 'git-gutter+-stage-and-commit)
+    (define-key git-gutter+-mode-map (kbd "C-x g C-c") 'git-gutter+-stage-and-commit-whole-buffer)
+    (define-key git-gutter+-mode-map (kbd "C-x g u") 'git-gutter+-unstage-whole-buffer)))
 
 (use-package git-gutter-fringe+
   :ensure t)
