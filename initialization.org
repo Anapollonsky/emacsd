@@ -1082,8 +1082,27 @@ Magit - the best interface for git. When it works.
       (autoload 'magit-status "magit" nil t)
       (define-key global-map (kbd "C-c g")                        'magit-status)))
 #+END_SRC
-VC for everything else.
+VC for other things.
 #+BEGIN_SRC emacs-lisp
-(key-chord-define-global "gc"           'vc-next-action)
+(global-set-key (kbd "C-x g c")            'vc-next-action)
+#+END_SRC
 
+Git-Timemachine allows for easy iteration through past versions of a file.
+#+BEGIN_SRC emacs-lisp
+(use-package git-timemachine
+  :ensure t
+  :config
+  (global-set-key (kbd "C-x g t")            'git-timemachine))
+#+END_SRC
+
+Git-gutter shows modifications since the last commit with pluses and minuses on each line.
+#+BEGIN_SRC emacs-lisp
+(use-package git-gutter+
+  :ensure t
+  :config
+  (progn
+    (git-gutter+-mode 1)))
+
+(use-package git-gutter-fringe+
+  :ensure t)
 #+END_SRC
