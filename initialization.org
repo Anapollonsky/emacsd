@@ -510,10 +510,7 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
                 ("q" "Quick Note" plain (file+headline (concat org-directory "/notes.org") "Quick Notes")
                  "+ %?\n %i\n")))
 
-        (setq org-agenda-files (list "~/org/agenda.org"))
-
-
-))
+        (setq org-agenda-files '("~/org/agenda.org" "~/org/notes.org"))))
 
   (use-package htmlize
     :ensure t)
