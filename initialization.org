@@ -1082,3 +1082,8 @@ Magit - the best interface for git. When it works.
       (autoload 'magit-status "magit" nil t)
       (define-key global-map (kbd "C-c g")                        'magit-status)))
 #+END_SRC
+VC for everything else.
+#+BEGIN_SRC emacs-lisp
+(key-chord-define-global "gc"           'vc-next-action)
+
+#+END_SRC
