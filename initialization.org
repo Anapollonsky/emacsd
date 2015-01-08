@@ -447,7 +447,7 @@ Tools for navigating and comparing directories in tree-form.
     :ensure ztree)
 #+END_SRC
 
-*** COMMENT Org-Mode
+*** Org-Mode
 Syntax highlighting for HTML export (uses theme colors, and theme is dark, so that doesn't work very well), syntax highlighting for PDF export (a lot better), custom document type, and some other stuff.
 #+BEGIN_SRC emacs-lisp
     (use-package org
