@@ -1099,7 +1099,7 @@ Git-gutter shows modifications since the last commit with pluses and minuses on 
   :diminish git-gutter+-mode
   :config
   (progn
-    (git-gutter+-mode 1)
+    (global-git-gutter+-mode 1)
 
     ;;; Jump between hunks
     (define-key git-gutter+-mode-map (kbd "C-x g n") 'git-gutter+-next-hunk)
