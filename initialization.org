@@ -522,7 +522,7 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))))
 #+END_SRC
 
-*** Multi-term
+*** Multiple terminals
 Allows for multiple separate terminals to be open. 
 #+BEGIN_SRC emacs-lisp
   (use-package multi-term
@@ -531,10 +531,7 @@ Allows for multiple separate terminals to be open.
     (progn
       (setq multi-term-program "/bin/zsh")
       (setq term-buffer-maximum-size 0)))
-
 #+END_SRC
-
-*** Multi-eshell
 Multiple instances of eshell
 #+BEGIN_SRC emacs-lisp
 (use-package multi-eshell
@@ -1105,4 +1102,5 @@ Git-gutter shows modifications since the last commit with pluses and minuses on 
 
 (use-package git-gutter-fringe+
   :ensure t)
+
 #+END_SRC
