@@ -391,6 +391,8 @@ Turn on hi-lock, allowing highlighting of symbols.
 
 #+BEGIN_SRC emacs-lisp
 (global-hi-lock-mode 1)
+(key-chord-define-global "hl"		'hi-lock-face-symbol-at-point)
+(key-chord-define-global "hh"		'hi-lock-unface-buffer)
 #+END_SRC
 *** Uniquify
 Generally emacs names multiple buffers with the same file by appending <2>, etc to them. Uniquify instead includes their directory name. This greatly helps distinguish between the two.
@@ -532,6 +534,13 @@ Allows for multiple separate terminals to be open.
 
 #+END_SRC
 
+*** Multi-eshell
+Multiple instances of eshell
+#+BEGIN_SRC emacs-lisp
+(use-package multi-eshell
+  :ensure t)
+
+#+END_SRC
 *** ibuffer
 Major mode for manipulating buffers. Create custom categories, save them.
 #+BEGIN_SRC emacs-lisp
