@@ -159,28 +159,30 @@ Mostly self-explanatory keybindings.
 *** Generic Custom Functions
 Copies current file name to clipboard.
 #+BEGIN_SRC emacs-lisp
-(defun prelude-copy-file-name-to-clipboard ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
-  (let ((filename (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name))))
-    (when filename
-      (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard." filename))))
+  (defun copy-file-name-to-clipboard ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename
+           (if (equal major-mode 'dired-mode) ;; Special behavior for dired-mode
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename)
+        (message (concat filename " copied to clipboard")))))
 
-(defun copy-current-line-position-to-clipboard ()
-"Copy current line in file to clipboard as '</path/to/file>:<line-number>'"
-(interactive)
-(let ((path-with-line-number
-(concat (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
-(kill-new path-with-line-number)
-(message (concat path-with-line-number " copied to clipboard"))))
- 
-(define-key global-map (kbd "M-l") 'copy-current-line-position-to-clipboard) 
+  (defun copy-current-line-position-and-path-to-clipboard ()
+    "Copy current line in file to clipboard as '</path/to/file>:<line-number>'"
+    (interactive)
+    (let ((path-with-line-number
+           (concat
+            (buffer-file-name) ":" (number-to-string (line-number-at-pos)))))
+      (kill-new path-with-line-number)
+      (message (concat path-with-line-number " copied to clipboard"))))
+   
+  (define-key global-map (kbd "M-l") 'copy-current-line-position-to-clipboard) 
 
-(global-set-key (kbd "C-c s h")	'prelude-copy-file-name-to-clipboard)
-(global-set-key (kbd "C-c s H")	'copy-current-line-position-to-clipboard)
+  (global-set-key (kbd "C-c s h") 'copy-file-name-to-clipboard)
+  (global-set-key (kbd "C-c s H") 'copy-current-line-position-and-path-to-clipboard)
 #+END_SRC
 
 Show matching parentheses.
