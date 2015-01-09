@@ -156,7 +156,7 @@ Mostly self-explanatory keybindings.
 (key-chord-define-global "fw"		'fixup-whitespace)
 #+END_SRC
 
-*** Generic Custom Functions
+*** COMMENT Generic Custom Functions
 Copies current file name to clipboard.
 #+BEGIN_SRC emacs-lisp
   (defun copy-file-name-to-clipboard ()
@@ -217,12 +217,23 @@ Jump to matching parentheses, forward or back.
 
 When called interactively with no active region, kill a single line instead.
 #+BEGIN_SRC emacs-lisp
-(defadvice kill-region (before slick-cut activate compile)
-  "When called interactively with no active region, kill a single line instead."
+;; updated version for emacs 24.4; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
+(defun slick-cut (beg end)
   (interactive
-    (if mark-active (list (region-beginning) (region-end))
-      (list (line-beginning-position)
-        (line-beginning-position 2)))))
+   (if mark-active
+       (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-beginning-position 2)))))
+
+(advice-add 'kill-region :before #'slick-cut)
+
+(defun slick-copy (beg end)
+  (interactive
+   (if mark-active
+       (list (region-beginning) (region-end))
+     (message "Copied line")
+     (list (line-beginning-position) (line-beginning-position 2)))))
+
+(advice-add 'kill-ring-save :before #'slick-copy)
 #+END_SRC
 
 ** Interface
