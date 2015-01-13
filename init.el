@@ -1,6 +1,6 @@
 ;; Work Proxy
- (setq url-proxy-services '(("no_proxy" . "work\\.com")
-                            ("http" . "global.proxy.lucent.com:8000")))
+;; (setq url-proxy-services '(("no_proxy" . "work\\.com")
+;;                            ("http" . "global.proxy.lucent.com:8000")))
 
 ;; Package repositories
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")

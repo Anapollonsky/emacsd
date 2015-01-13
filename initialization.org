@@ -91,6 +91,7 @@ Turn off unnecessary GUI elements, such as the scrollbar, start screen, etc.
   (menu-bar-mode -1)
   (scroll-bar-mode -1))
 (setq inhibit-startup-screen t)
+(setq use-dialog-box nil)
 #+END_SRC
 
 *** Browser
@@ -586,15 +587,22 @@ Mail client.
     :init
     (progn
       ;; default
-      (setq mu4e-maildir (expand-file-name "~/.mail/gmail"))
-
-      (setq mu4e-drafts-folder "Drafts")
-      (setq mu4e-sent-folder   "Sent_Mail")
-      (setq mu4e-trash-folder  "Trash")
+      (setq mu4e-maildir  "~/mail/gmail")
+      (setq mu4e-drafts-folder "/Drafts")
+      (setq mu4e-sent-folder   "/Sent")
+      (setq mu4e-trash-folder  "/Trash")
 
       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
       (setq mu4e-sent-messages-behavior 'delete)
 
+      ;; prefer rich-text to plain-text
+      (setq mu4e-view-prefer-html t)
+
+      ;; include images
+      (setq mu4e-view-show-images t)
+      (when (fboundp 'imagemagick-register-types)
+        (imagemagick-register-types))
+      
       ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
       ;; additional non-Gmail addresses and want assign them different
       ;; behavior.)
@@ -616,32 +624,18 @@ Mail client.
             mu4e-update-interval 120
             mu4e-headers-auto-update t
             mu4e-compose-signature-auto-include nil)
-      ;; something about ourselves
+
       (setq
        user-mail-address "Anapollonsky@gmail.com"
        user-full-name  "Andrew Apollonsky"
-       mu4e-compose-signature
-       (concat
-        "Andrew Apollonsky"
-        ""))))
+       mu4e-compose-signature "Andrew Apollonsky")))
 
-  ;; sending mail -- replace USERNAME with your gmail username
-  ;; also, make sure the gnutls command line utils are installed
-  ;; package 'gnutls-bin' in Debian/Ubuntu
+(global-set-key (kbd "C-x m")       'mu4e)
+
   (use-package smtpmail
     :ensure t
     :init
     (progn
-      ;; (setq message-send-mail-function 'smtpmail-send-it
-      ;;    starttls-use-gnutls t
-      ;;    smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      ;;    smtpmail-auth-credentials
-      ;;      '(("smtp.gmail.com" 587 "Anapollonsky@gmail.com" nil))
-      ;;    smtpmail-default-smtp-server "smtp.gmail.com"
-      ;;    smtpmail-smtp-server "smtp.gmail.com"
-      ;;    smtpmail-smtp-service 587)
-
-      ;; alternatively, for emacs-24 you can use:
       (setq message-send-mail-function 'smtpmail-send-it
             smtpmail-stream-type 'starttls
             smtpmail-default-smtp-server "smtp.gmail.com"
@@ -650,7 +644,6 @@ Mail client.
 
       ;; don't keep message buffers around
       (setq message-kill-buffer-on-exit t)))
-
 #+END_SRC
 *** Undo Tree
 Treats your undo history like a tree, so no information is lost with undos and redos. 
