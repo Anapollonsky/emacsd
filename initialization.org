@@ -560,7 +560,12 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
     (progn
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))))
 #+END_SRC
+*** Agenda
+Related to Org-mode, but significant enough to keep separately.
+#+BEGIN_SRC emacs-lisp
+(key-chord-define-global "wx"		'org-todo-list)
 
+#+END_SRC
 *** Multiple terminals
 Allows for multiple separate terminals to be open. 
 #+BEGIN_SRC emacs-lisp
