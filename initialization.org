@@ -1094,6 +1094,15 @@ Fits a similar niche to multiple cursors, but slightly less powerful. Faster; no
   :ensure t)
 
 #+END_SRC
+*** String Inflection
+Allows switching between camelcase, underscore, etc.
+#+BEGIN_SRC emacs-lisp
+  (use-package string-inflection
+    :ensure t
+    :config
+    (key-chord-define-global ",." 'string-inflection-cycle))
+#+END_SRC
+
 *** Version Control
 Magit - the best interface for git. When it works. 
 #+BEGIN_SRC emacs-lisp
