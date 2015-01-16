@@ -115,7 +115,7 @@ By default, sentences in emacs are expected to end with double spaces.
 (setq sentence-end-double-space nil)
 #+END_SRC
 
-*** COMMENT Other
+*** Other
 Buffers that should appear over the current buffer when created, instead of in a new window.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'same-window-buffer-names '*undo-tree*)
