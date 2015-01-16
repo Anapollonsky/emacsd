@@ -115,7 +115,7 @@ By default, sentences in emacs are expected to end with double spaces.
 (setq sentence-end-double-space nil)
 #+END_SRC
 
-*** Other
+*** COMMENT Other
 Buffers that should appear over the current buffer when created, instead of in a new window.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'same-window-buffer-names '*undo-tree*)
@@ -125,8 +125,7 @@ Integrate copy/paste with that of other X clients.
 #+BEGIN_SRC emacs-lisp
   (if (not (eq system-type 'windows-nt))
       (setq x-select-enable-clipboard t
-            interprogram-paste-function
-            'x-cut-buffer-or-selection-value))
+            interprogram-paste-function 'x-selection-value))
 #+END_SRC
 
 Replace yes-or-no with y-or-n
