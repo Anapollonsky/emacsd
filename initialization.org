@@ -741,6 +741,15 @@ Music player within emacs interfacing with MPD (media player daemon). It works, 
   (add-to-list 'emms-player-list 'emms-player-mpd)
 
 #+END_SRC
+*** Weather
+#+BEGIN_SRC emacs-lisp
+  (use-package weather-metno
+    :ensure t
+    :config
+    (setq weather-metno-location-name "New York City, United States"
+          weather-metno-location-latitude 40.71
+          weather-metno-location-longitude 74.00))
+#+END_SRC
 ** Multi-Language Tools
 *** Semantic
 Smart syntax analyxer, used for code navigation and code completion.
