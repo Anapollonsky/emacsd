@@ -727,6 +727,20 @@ Pandoc-mode interfaces with pandoc, and allows for file conversions to formats b
 
 #+END_SRC
 
+*** EMMS
+Music player within emacs interfacing with MPD (media player daemon). It works, but I don't know why I wouldn't use a dedicated program given how bad EMMS seems to me to be.
+#+BEGIN_SRC emacs-lisp
+  (use-package emms
+    :ensure t)
+
+  (require 'emms-browser)
+  (require 'emms-player-mpd)
+  (setq emms-player-mpd-server-name "localhost")
+  (setq emms-player-mpd-server-port "6600")
+  (add-to-list 'emms-info-functions 'emms-info-mpd)
+  (add-to-list 'emms-player-list 'emms-player-mpd)
+
+#+END_SRC
 ** Multi-Language Tools
 *** Semantic
 Smart syntax analyxer, used for code navigation and code completion.
