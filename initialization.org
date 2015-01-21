@@ -36,6 +36,39 @@ Searches for unbound key combinations. Good to have, but not something you use o
   (use-package unbound
     :ensure t)
 #+END_SRC
+
+Allows for creation of commands that don't require 
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t
+    :config
+    (progn
+      (require 'hydra-examples)
+      (hydra-create "<f2>"
+        '(("+" text-scale-increase)
+          ("-" text-scale-decrease)))
+
+      (hydra-create "C-M-o"
+        '(("h" hydra-move-splitter-left)
+          ("j" hydra-move-splitter-down)
+          ("k" hydra-move-splitter-up)
+          ("l" hydra-move-splitter-right)))
+  
+      (hydra-create "M-n"
+        '(("h" left-char)
+          ("j" next-line)
+          ("k" previous-line)
+          ("l" right-char)))
+
+      (hydra-create "M-p"
+        '(("h" left-word)
+          ("j" forward-paragraph)
+          ("k" backward-paragraph)
+          ("l" right-word)))
+
+      ))
+
+#+END_SRC
 *** Theme
 Add my theme directory and load one! As of the time of writing, my theme apples-gray is a lightly modified monokai theme.
 #+BEGIN_SRC emacs-lisp
@@ -307,10 +340,10 @@ Helm-swoop allows for fast navigation of lines in a document. Similar to helm-oc
 *** Winner-mode
 Go back and forth in buffer and window configuration history. A bit messy with helm, but worth it.
 #+BEGIN_SRC emacs-lisp
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
-(global-set-key (kbd "C-c C-<left>")	'winner-undo)
-(global-set-key (kbd "C-c C-<right>")	'winner-redo)
+  (when (fboundp 'winner-mode)
+    (winner-mode 1))
+  (global-set-key (kbd "C-c C-<left>")    'winner-undo)
+  (global-set-key (kbd "C-c C-<right>")   'winner-redo)
 #+END_SRC
 
 *** Perspective
@@ -338,7 +371,12 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
       (add-hook 'org-shiftup-final-hook 'windmove-up)
       (add-hook 'org-shiftleft-final-hook 'windmove-left)
       (add-hook 'org-shiftdown-final-hook 'windmove-down)
-      (add-hook 'org-shiftright-final-hook 'windmove-right)))
+      (add-hook 'org-shiftright-final-hook 'windmove-right)
+      (hydra-create "C-w"
+        '(("h" windmove-left)
+          ("j" windmove-down)
+          ("k" windmove-up)
+          ("l" windmove-right)))))
 
   (use-package framemove
     :ensure t
@@ -431,8 +469,8 @@ Turn on hi-lock, allowing highlighting of symbols.
 
 #+BEGIN_SRC emacs-lisp
 (global-hi-lock-mode 1)
-(key-chord-define-global "hl"		'hi-lock-face-symbol-at-point)
-(key-chord-define-global "hh"		'hi-lock-unface-buffer)
+(key-chord-define-global "yl"		'hi-lock-face-symbol-at-point)
+(key-chord-define-global "yy"		'hi-lock-unface-buffer)
 #+END_SRC
 *** Uniquify
 Generally emacs names multiple buffers with the same file by appending <2>, etc to them. Uniquify instead includes their directory name. This greatly helps distinguish between the two.
@@ -782,12 +820,12 @@ Smart syntax analyxer, used for code navigation and code completion.
              (goto-char pos))
            (set-marker marker nil nil))))
 
-     (define-key semantic-mode-map (kbd "C-c w d")               'semantic-goto-definition)
-     (define-key semantic-mode-map (kbd "C-c w q")               'semantic-pop-tag-mark)
-     (define-key semantic-mode-map (kbd "C-c w e")               'senator-go-up-reference)
-     (define-key semantic-mode-map (kbd "C-c w s")               'semantic-symref)
-     (define-key semantic-mode-map (kbd "C-c w z")               'senator-previous-tag)
-     (define-key semantic-mode-map (kbd "C-c w x")               'senator-next-tag)))
+     (define-key semantic-mode-map (kbd "C-c a d")               'semantic-goto-definition)
+     (define-key semantic-mode-map (kbd "C-c a q")               'semantic-pop-tag-mark)
+     (define-key semantic-mode-map (kbd "C-c a e")               'senator-go-up-reference)
+     (define-key semantic-mode-map (kbd "C-c a s")               'semantic-symref)
+     (define-key semantic-mode-map (kbd "C-c a z")               'senator-previous-tag)
+     (define-key semantic-mode-map (kbd "C-c a x")               'senator-next-tag)))
 
   (use-package semantic/bovine/gcc
    :ensure semantic)
@@ -1015,8 +1053,10 @@ Allows for the semantic expansion and contraction of the region.
     :ensure t
     :config
     (progn
-      (global-set-key (kbd "C-.")         'er/expand-region)
-      (global-set-key (kbd "C-,")         'er/contract-region)))
+      (global-unset-key (kbd "C-."))
+      (hydra-create "C-."
+        '(("." er/expand-region)
+          ("," er/contract-region)))))
 #+END_SRC
 *** Clean aident
 Remove whitespace after RETing 2nd time in a row. 
@@ -1068,9 +1108,7 @@ Allows for jumping around based on the first letter of characters, words and lin
     (progn
       (eval-after-load "ace-jump-mode"
         '(ace-jump-mode-enable-mark-sync))
-      (key-chord-define-global "jk"           'ace-jump-word-mode)
-      (key-chord-define-global "jl"           'ace-jump-line-mode)
-      (key-chord-define-global "jj"           'ace-jump-char-mode)))
+      (key-chord-define-global "uu"           'ace-jump-word-mode)))
 #+END_SRC
 
 *** Ace Zap
@@ -1090,11 +1128,12 @@ Powerful plugin that generates multiple cursors, allowing for easy rectangular e
     :ensure t
     :config
     (progn 
+      (hydra-create "C-x c"
+        '(("n" mc/mark-next-like-this)
+          ("p" mc/mark-previous-like-this)))
       (global-set-key (kbd "C-x c e") 'mc/edit-lines)
       (global-set-key (kbd "C-x c d") 'mc/mark-all-dwim)
       (global-set-key (kbd "C-x c a") 'mc/mark-all-like-this)
-      (global-set-key (kbd "C-x c n") 'mc/mark-next-like-this)
-      (global-set-key (kbd "C-x c p") 'mc/mark-previous-like-this)
       (global-set-key (kbd "C-x c w") 'mc/mark-more-like-this-extended)
       (global-set-key (kbd "C-x c t") 'mc/mark-sgml-tag-pair)
       (global-set-key (kbd "C-x c c") 'mc/insert-numbers)
