@@ -1039,6 +1039,14 @@ Auctex is a latex minor mode.
   :ensure auctex)
 
 #+END_SRC
+*** Scala
+#+BEGIN_SRC emacs-lisp
+;; (use-package ensime
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
+#+END_SRC
 *** Other
 This should provide highlighting to a ton of different miscellaneous syntaxes.
 #+BEGIN_SRC emacs-lisp
