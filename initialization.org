@@ -371,11 +371,12 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
       (add-hook 'org-shiftleft-final-hook 'windmove-left)
       (add-hook 'org-shiftdown-final-hook 'windmove-down)
       (add-hook 'org-shiftright-final-hook 'windmove-right)
-      (hydra-create "C-w"
-        '(("h" windmove-left)
-          ("j" windmove-down)
-          ("k" windmove-up)
-          ("l" windmove-right)))))
+      ;; (hydra-create "C-w"
+      ;;   '(("h" windmove-left)
+      ;;     ("j" windmove-down)
+      ;;     ("k" windmove-up)
+      ;;     ("l" windmove-right)))
+))
 
   (use-package framemove
     :ensure t
