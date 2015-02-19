@@ -370,7 +370,14 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
       (add-hook 'org-shiftup-final-hook 'windmove-up)
       (add-hook 'org-shiftleft-final-hook 'windmove-left)
       (add-hook 'org-shiftdown-final-hook 'windmove-down)
-      (add-hook 'org-shiftright-final-hook 'windmove-right)))
+
+      (add-hook 'org-shiftright-final-hook 'windmove-right)
+      ;; (hydra-create "C-w"
+      ;;   '(("h" windmove-left)
+      ;;     ("j" windmove-down)
+      ;;     ("k" windmove-up)
+      ;;     ("l" windmove-right)))
+))
 
   (use-package framemove
     :ensure t
@@ -1051,6 +1058,14 @@ Auctex is a latex minor mode.
 (use-package tex
   :ensure auctex)
 
+#+END_SRC
+*** Scala
+#+BEGIN_SRC emacs-lisp
+;; (use-package ensime
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
 #+END_SRC
 *** Other
 This should provide highlighting to a ton of different miscellaneous syntaxes.
