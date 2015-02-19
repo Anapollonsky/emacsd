@@ -370,12 +370,7 @@ Allows for SHIFT + arrow keys to navigate between open buffers. Framemove extend
       (add-hook 'org-shiftup-final-hook 'windmove-up)
       (add-hook 'org-shiftleft-final-hook 'windmove-left)
       (add-hook 'org-shiftdown-final-hook 'windmove-down)
-      (add-hook 'org-shiftright-final-hook 'windmove-right)
-      (hydra-create "C-w"
-        '(("h" windmove-left)
-          ("j" windmove-down)
-          ("k" windmove-up)
-          ("l" windmove-right)))))
+      (add-hook 'org-shiftright-final-hook 'windmove-right)))
 
   (use-package framemove
     :ensure t
@@ -1023,6 +1018,24 @@ Paredit allows for weird, parentheses-based editing.
       (add-hook 'emacs-lisp-mode-hook 'slime-mode)))
 #+END_SRC
 
+*** Javascript
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :config
+    (progn 
+      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
+
+  (use-package skewer-mode
+    :ensure t
+    :config
+    (progn
+      (add-hook 'js2-mode-hook 'skewer-mode)
+      (add-hook 'css-mode-hook 'skewer-css-mode)
+      (add-hook 'html-mode-hook 'skewer-html-mode)))
+
+
+#+END_SRC
 *** Python
 Jedi is an autocompletion framework for python. Interfaces to company-mode.
 #+BEGIN_SRC emacs-lisp
