@@ -19,6 +19,7 @@
 
 (setq package-enable-at-startup nil)
 (package-initialize)
+(package-refresh-contents)
 
 ;; Single package to auto-install package if not present. Only used to bootstrap use-package.
 (or (package-installed-p 'use-package) (package-install 'use-package))
