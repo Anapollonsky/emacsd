@@ -1,6 +1,30 @@
+(require 'cl-lib)
+(defun can-retrieve-packages ()
+  (cl-loop for url in '("http://melpa.milkbox.net/packages/"
+                        "http://elpa.gnu.org/packages/")
+           do (condition-case e
+                  (kill-buffer (url-retrieve-synchronously url))
+                (error (cl-return)))
+           finally (cl-return t)))
+
+
+(if (not (package-installed-p 'bind-key))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'bind-key)
+
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'use-package)
+
+
 ;; Work Proxy
-;; (setq url-proxy-services '(("no_proxy" . "work\\.com")
-;;                            ("http" . "global.proxy.lucent.com:8000")))
+(when (not (can-retrieve-packages))
+(setq url-proxy-services '(("no_proxy" . "work\\.com")
+                           ("http" . "global.proxy.lucent.com:8000"))) )
 
 ;; Package repositories
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -18,16 +42,3 @@
 
 ;; Proceed with rest of initialization
  (org-babel-load-file "~/.emacs.d/initialization.org")
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-use-overlays nil)
- '(org-agenda-files (quote ("~/org/notes.org"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
