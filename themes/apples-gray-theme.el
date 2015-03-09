@@ -2239,7 +2239,7 @@ Takes and optional `FRAME' as reference."
 
      ;; whitespace-mode
      `(whitespace-space
-       ((,class (:background ,apples-bg
+       ((,class (:background unspecified
                              :foreground "gray15"
                              :inverse-video unspecified
                              :slant italic))))
