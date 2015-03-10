@@ -1,6 +1,12 @@
-#+LATEX_HEADER: \usepackage[margin=.75in]{geometry}
+* Header
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
 #+LATEX_HEADER: \usepackage{etoolbox}
-#+LATEX_HEADER: \AtBeginEnvironment{minted}{\fontsize{8.5}{8.5}\selectfont}
+#+LATEX_HEADER: \AtBeginEnvironment{minted}{\fontsize{12}{12}\selectfont}
+#+LaTeX_CLASS: code-article 
+#+HTML_HEAD: "<style type="text/css">.org-src-container{ background-color: #181830; color: #DDDDFF; font-size: 130%} </style>"
+#+OPTIONS: toc:nil title:nil ^:nil
+#+BIND: org-latex-title-command ""
+
 * Emacs Initialization Script
   This file is an org-mode file that contains a lot of emacs-lisp code, along with some comments and whatnot regarding that code.This file is directly loaded by the emacs init.el, and provided that use-package is installed, an internet connection is available and package repositories are properly defined in init.el, everything here should install without user interaction on emacs startup.
 ** Basic Settings
@@ -10,13 +16,9 @@ Basic me-details for emacs to know.
 (setf user-full-name "Andrew Apollonsky")
 (setf user-mail-address "Anapollonsky@gmail.com")
 #+END_SRC
-*** Diminish
-Allows for hiding of modes from the mode line. This package is here generally called directly by the use-package command.
-#+BEGIN_SRC emacs-lisp
-(use-package diminish
-  :ensure t)
-#+END_SRC
+
 *** Key Manipulation
+**** Key Chords
 Allows for more complicated key combinations for commands, such as "z-d".
 #+BEGIN_SRC emacs-lisp
 (use-package key-chord
@@ -26,17 +28,20 @@ Allows for more complicated key combinations for commands, such as "z-d".
   (key-chord-mode t))
 #+END_SRC
 
+**** New Modifiers
 Make C-z a new modifier prefix.
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-z"))
 #+END_SRC
 
+**** Unbound Keys
 Searches for unbound key combinations. Good to have, but not something I use often.
 #+BEGIN_SRC emacs-lisp
   (use-package unbound
     :ensure t)
 #+END_SRC
 
+**** Hydra
 Allows for creation of commands that don't require a prefix combination to be repeated every iteration. =C-z a= + =C-z a= vs =C-z a a=.
 #+BEGIN_SRC emacs-lisp
   (use-package hydra
@@ -45,42 +50,6 @@ Allows for creation of commands that don't require a prefix combination to be re
     (progn
       (require 'hydra-examples)
 
-      (defhydra hydra-zoom (global-map "C-z z")
-        "hydra-zoom"
-        ("+" text-scale-increase)
-        ("-" text-scale-decrease))
-
-      (defhydra hydra-splitter (global-map "C-z s")
-        "splitter"
-        ("h" hydra-move-splitter-left)
-        ("j" hydra-move-splitter-down)
-        ("k" hydra-move-splitter-up)
-        ("l" hydra-move-splitter-right))
-
-      (defhydra hydra-charnav (global-map "C-n")
-        "char-nav"
-        ("h" left-char)
-        ("j" next-line)
-        ("k" previous-line)
-        ("l" right-char))
-
-      (defhydra hydra-parnav (global-map "C-m")
-        "par-nav"
-        ("h" left-word)
-        ("j" forward-paragraph)
-        ("k" backward-paragraph)
-        ("l" right-word))
-
-      (defhydra hydra-goto-line 
-        (goto-map ""
-                  :pre (linum-mode 1)
-                  :post (linum-mode -1))
-        "goto-line"
-        ("g" goto-line "go")
-        ("m" set-mark-command "mark" :bind nil)
-        ("q" nil "quit"))    
-      (global-set-key (kbd "M-g") #'hydra-goto-line/goto-line)
-      
       (defhydra hydra-yank-pop ()
         "yank"
         ("C-y" yank nil)
@@ -92,14 +61,8 @@ Allows for creation of commands that don't require a prefix combination to be re
       (global-set-key (kbd "C-y") #'hydra-yank-pop/yank)
 ))
 #+END_SRC
-*** Theme
-Add my theme directory and load one! As of the time of writing, my theme apples-gray is a lightly modified monokai theme.
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (load-theme 'apples-gray t)
-#+END_SRC
-
 *** Backups 
+**** Backups
 Make lots of backups, and store them in a centralized directory.
 #+BEGIN_SRC emacs-lisp
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -109,7 +72,7 @@ Make lots of backups, and store them in a centralized directory.
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
 
-*** History
+**** History files
 Save history files.
 #+BEGIN_SRC emacs-lisp
 (setq savehist-file "~/.emacs.d/savehist")
@@ -123,6 +86,7 @@ Save history files.
         regexp-search-ring))
 #+END_SRC
 
+**** Saveplace
 And save your last place in files when editing.
 #+BEGIN_SRC emacs-lisp
   (use-package saveplace
@@ -132,13 +96,36 @@ And save your last place in files when editing.
            (setq-default save-place t)))
 
 #+END_SRC
+**** Undo Tree
+Treats your undo history like a tree, so no information is lost with undos and redos. 
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :diminish undo-tree-mode
+    :config
+    (progn
+      (global-undo-tree-mode)
+      (setq undo-tree-auto-save-history t)
+      (setq undo-tree-visualizer-timestamps t)
+      (setq undo-tree-visualizer-diff t)))
+
+#+END_SRC
 *** Basic GUI
+**** Theme
+Add my theme directory and load one! As of the time of writing, my theme apples-gray is a lightly modified monokai theme.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+  (load-theme 'apples-gray t)
+#+END_SRC
+
+**** Font
 Set default font. Requires installation on windows.
 http://dejavu-fonts.org/wiki/Main_Page
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default t :font "DejaVu Sans Mono-11" )
 (add-to-list 'default-frame-alist '(font .  "DejaVu Sans Mono-11" ))
 #+END_SRC
+**** GUI Elements
 Turn off unnecessary GUI elements, such as the scrollbar, start screen, etc.
 #+BEGIN_SRC emacs-lisp
 (when window-system
@@ -150,6 +137,21 @@ Turn off unnecessary GUI elements, such as the scrollbar, start screen, etc.
 (setq use-dialog-box nil)
 #+END_SRC
 
+**** Diminish
+Allows for hiding of modes from the mode line. This package is here generally called directly by the use-package command.
+#+BEGIN_SRC emacs-lisp
+(use-package diminish
+  :ensure t)
+#+END_SRC
+**** Discoverability
+Pop up help menus for specified key combinations.
+Good dired help menu with ?.
+#+BEGIN_SRC emacs-lisp
+(use-package discover
+  :ensure t
+  :config
+  (add-hook 'dired-mode-hook 'discover-mode))
+#+END_SRC
 
 *** Other
 **** Overshowing buffers
@@ -215,6 +217,20 @@ By default, sentences in emacs are expected to end with double spaces.
 (setq sentence-end-double-space nil)
 #+END_SRC
 
+**** Visual Line Mode
+Causes line-wrapping, and remaps C-a and C-e to jump to visual lines, not logical lines.
+#+BEGIN_SRC emacs-lisp
+(global-visual-line-mode t)
+(diminish 'visual-line-mode)
+#+END_SRC
+**** Clean aident
+Remove whitespace after RETing 2nd time in a row. 
+#+BEGIN_SRC emacs-lisp
+(use-package clean-aindent-mode
+  :init
+  (add-hook 'prog-mode-hook 'clean-aindent-mode))
+
+#+END_SRC
 *** Generic Custom Functions
 **** File name to clipboard
 Copies current file name to clipboard.
@@ -516,6 +532,26 @@ Allows for transposing and flipping and whatnot of window layouts. Messy due to 
 
 #+END_SRC
 
+**** Resize Text
+Resize text.
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-zoom (global-map "C-z z")
+    "hydra-zoom"
+    ("+" text-scale-increase)
+    ("-" text-scale-decrease))
+
+#+END_SRC
+**** Resize windows
+Resize windows
+#+BEGIN_SRC emacs-lisp
+      (defhydra hydra-splitter (global-map "C-z s")
+        "splitter"
+        ("h" hydra-move-splitter-left)
+        ("j" hydra-move-splitter-down)
+        ("k" hydra-move-splitter-up)
+        ("l" hydra-move-splitter-right))
+
+#+END_SRC
 *** Buffer Contents
 **** Paste highlighting
 Highlight a recently-pasted region. 
@@ -603,7 +639,39 @@ Prettifies the mode-line.
   (powerline-default-theme))
   
 #+END_SRC
-*** Navigation
+*** Out-Buffer Navigation
+**** ibuffer
+Major mode for manipulating buffers. Create custom categories, save them.
+#+BEGIN_SRC emacs-lisp
+  (use-package ibuffer
+    :ensure t
+    :config
+    (progn
+      (setq ibuffer-saved-filter-groups
+            (quote (("default"      
+                     ("Org"
+                      (mode . org-mode))  
+                     ("Mail"
+                      (or
+                       (mode . message-mode)
+                       (mode . mail-mode)
+                       ))
+                     ("Helm"
+                      (name . "Helm"))
+                     ("Vobs"
+                      (filename . "/vobs/"))
+                     ("Scripts"
+                      (filename . "/home/aapollon/scripts"))
+                     ("Manpages"
+                      (mode . Man))))))
+
+      (add-hook 'ibuffer-mode-hook
+                (lambda ()
+                  (ibuffer-switch-to-saved-filter-groups "default")))
+      (define-key global-map (kbd "C-x C-b")                  'ibuffer)))
+
+
+#+END_SRC
 **** Projectile
 Used for navigating and otherwise controlling projects.
 #+BEGIN_SRC emacs-lisp
@@ -668,28 +736,159 @@ Used for navigating and otherwise controlling projects.
   (global-set-key  (kbd "C-z p") 'hydra-projectile/body)
 #+END_SRC
 
-
-*** Discoverability
-Pop up help menus for specified key combinations.
-Good dired help menu with ?.
+**** Semantic
+Smart syntax analyxer, used for code navigation and code completion.
 #+BEGIN_SRC emacs-lisp
-(use-package discover
-  :ensure t
-  :config
-  (add-hook 'dired-mode-hook 'discover-mode))
+  (use-package semantic
+   :ensure t
+   :config
+   (progn 
+     (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+     (add-to-list 'semantic-default-submodes 'global-semantic-idle-breadcrumbs-mode)
+     (semantic-mode 1)
+
+     (defvar semantic-tags-location-ring (make-ring 20)) 
+     (defun semantic-goto-definition (point)
+       "Goto definition using semantic-ia-fast-jump, save the pointer marker if tag is found"
+       (interactive "d")
+       (condition-case err
+           (progn
+             (ring-insert semantic-tags-location-ring (point-marker))
+             (semantic-ia-fast-jump point))
+         (error
+          ;;if not found remove the tag saved in the ring
+          (set-marker (ring-remove semantic-tags-location-ring 0) nil nil)
+          (signal (car err) (cdr err)))))
+
+     (defun semantic-pop-tag-mark ()
+       "popup the tag save by semantic-goto-definition"
+       (interactive)
+       (if (ring-empty-p semantic-tags-location-ring)
+           (message "%s" "No more tags available")
+         (let* ((marker (ring-remove semantic-tags-location-ring 0))
+                (buff (marker-buffer marker))
+                (pos (marker-position marker)))
+           (if (not buff)
+               (message "Buffer has been deleted")
+             (switch-to-buffer buff)
+             (goto-char pos))
+           (set-marker marker nil nil))))
+
+     (define-key semantic-mode-map (kbd "C-c a d")               'semantic-goto-definition)
+     (define-key semantic-mode-map (kbd "C-c a q")               'semantic-pop-tag-mark)
+     (define-key semantic-mode-map (kbd "C-c a e")               'senator-go-up-reference)
+     (define-key semantic-mode-map (kbd "C-c a s")               'semantic-symref)
+     (define-key semantic-mode-map (kbd "C-c a z")               'senator-previous-tag)
+     (define-key semantic-mode-map (kbd "C-c a x")               'senator-next-tag)))
+
+  (use-package semantic/bovine/gcc
+   :ensure semantic)
+
+#+END_SRC
+**** Xcscope
+Cscope is program that indexes and then allows for fast navigation of C projects, with limited support for other languages.
+#+BEGIN_SRC emacs-lisp
+  (use-package xcscope
+   :ensure t
+   :init
+   (progn 
+     (add-hook 'c-mode-hook 'cscope-minor-mode)
+     (add-hook 'c++-mode-hook 'cscope-minor-mode)
+     (setq cscope-initial-directory "/vobs/"))
+   :config
+   (global-set-key (kbd "C-c z")		'cscope-minor-mode)
+   (define-key cscope-minor-mode-keymap (kbd "C-c s q")    'cscope-pop-mark))
+
+#+END_SRC
+
+**** Ggtags
+Gtags, or GNU Global, is a more comprehensive tagging program, theoretically supporting more languages and whatnot. Ggtags is an emacs package for interfacing with it.
+#+BEGIN_SRC emacs-lisp
+  (use-package ggtags
+   :ensure t
+   :init
+   (progn 
+     (defun create-tags (dir-name)
+       "Create tags file."
+       (interactive "DDirectory: ")
+       (eshell-command 
+        (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name))))
+   :config
+   (progn
+     (global-set-key (kbd "C-c x")		'ggtags-mode) 
+     (define-key ggtags-mode-map (kbd "C-c s g")             'ggtags-find-tag-dwim)
+     (define-key ggtags-mode-map (kbd "C-c s d")             'ggtags-find-definition)
+     (define-key ggtags-mode-map (kbd "C-c s f")             'ggtags-find-file)
+     (define-key ggtags-mode-map (kbd "C-c s s")             'ggtags-find-reference)
+     (define-key ggtags-mode-map (kbd "C-c s q")             'ggtags-prev-mark)
+     (define-key ggtags-mode-map (kbd "C-c s w")             'ggtags-next-mark)
+     (define-key ggtags-mode-map (kbd "C-c s t")             'ggtags-grep)))
+#+END_SRC
+
+*** In-Buffer Navigation
+**** Ace Jump
+Allows for jumping around based on the first letter of characters, words and lines.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-jump-mode
+    :ensure t
+    :config
+    (progn
+      (eval-after-load "ace-jump-mode"
+        '(ace-jump-mode-enable-mark-sync))
+      (global-set-key (kbd "C-z SPC")    'ace-jump-word-mode)))
 #+END_SRC
 
 
-
-    
-*** Visual Line Mode
-Causes line-wrapping, and remaps C-a and C-e to jump to visual lines, not logical lines.
+Zap up to a character, ace-jump style. dwim goes to first instance, regular lets you specify.
 #+BEGIN_SRC emacs-lisp
-(global-visual-line-mode t)
-(diminish 'visual-line-mode)
+  (use-package ace-jump-zap
+    :ensure ace-jump-zap
+    :config
+    (progn
+      (key-chord-define-global "jd"           'ace-jump-zap-up-to-char-dwim)
+      (key-chord-define-global "jz"           'ace-jump-zap-up-to-char)))
+#+END_SRC
+**** Character Navigation
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-charnav (global-map "C-n")
+    "char-nav"
+    ("h" left-char)
+    ("j" next-line)
+    ("k" previous-line)
+    ("l" right-char))
+#+END_SRC
+**** Fast Character Navigation
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-parnav (global-map "C-m")
+    "par-nav"
+    ("h" left-word)
+    ("j" forward-paragraph)
+    ("k" backward-paragraph)
+    ("l" right-word))
+#+END_SRC
+
+**** Jump Lines
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-goto-line 
+    (goto-map ""
+              :pre (linum-mode 1)
+              :post (linum-mode -1))
+    "goto-line"
+    ("g" goto-line "go")
+    ("m" set-mark-command "mark" :bind nil)
+    ("q" nil "quit"))    
+  (global-set-key (kbd "M-g") #'hydra-goto-line/goto-line)
 #+END_SRC
 ** Tool Major Modes
-*** Ztree
+*** Files
+**** Ztree
 Tools for navigating and comparing directories in tree-form.
 #+BEGIN_SRC emacs-lisp
   (use-package ztree-dir
@@ -699,7 +898,46 @@ Tools for navigating and comparing directories in tree-form.
     :ensure ztree)
 #+END_SRC
 
+**** Dired
+An emacs file manager.
+#+BEGIN_SRC emacs-lisp
+(use-package dired+
+  :ensure t
+  :config
+  (setq dired-dwim-target t)) ;; Copy to other dired buffer by default
+
+#+END_SRC
+
+#+END_SRC
+**** Pandoc
+Pandoc-mode interfaces with pandoc, and allows for file conversions to formats both common and esoteric.
+#+BEGIN_SRC emacs-lisp
+(use-package pandoc-mode
+  :ensure t)
+
+#+END_SRC
+
+*** Shell
+**** Multiple terminals
+Allows for multiple separate terminals to be open. 
+#+BEGIN_SRC emacs-lisp
+  (use-package multi-term
+    :ensure t
+    :init
+    (progn
+      (setq multi-term-program "/bin/zsh")
+      (setq term-buffer-maximum-size 0)))
+#+END_SRC
+
+**** Powershell
+Run powershell from windows.
+#+BEGIN_SRC emacs-lisp
+  (if (eq system-type 'windows-nt)
+      (use-package powershell
+        :ensure t))
+#+END_SRC
 *** Org-Mode
+**** General
 Syntax highlighting for HTML export (uses theme colors, and theme is dark, so that doesn't work very well), syntax highlighting for PDF export (a lot better), custom document type, and some other stuff.
 #+BEGIN_SRC emacs-lisp
     (use-package org
@@ -764,65 +1002,32 @@ Syntax highlighting for HTML export (uses theme colors, and theme is dark, so th
 
         (setq org-agenda-files '("~/org/agenda.org" "~/org/notes.org"))))
 
+#+END_SRC
+**** Syntax Coloring 
+Syntax coloring for html.
+#+BEGIN_SRC emacs-lisp
   (use-package htmlize
     :ensure t)
 
+#+END_SRC
+**** Bullets 
+Syntax coloring for html.
+#+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
     :config
     (progn
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))))
 #+END_SRC
-*** Agenda
+**** Agenda
 Related to Org-mode, but significant enough to keep separately.
 #+BEGIN_SRC emacs-lisp
 (key-chord-define-global "wx"		'org-todo-list)
 
 #+END_SRC
-*** Multiple terminals
-Allows for multiple separate terminals to be open. 
-#+BEGIN_SRC emacs-lisp
-  (use-package multi-term
-    :ensure t
-    :init
-    (progn
-      (setq multi-term-program "/bin/zsh")
-      (setq term-buffer-maximum-size 0)))
-#+END_SRC
 
-*** ibuffer
-Major mode for manipulating buffers. Create custom categories, save them.
-#+BEGIN_SRC emacs-lisp
-  (use-package ibuffer
-    :ensure t
-    :config
-    (progn
-      (setq ibuffer-saved-filter-groups
-            (quote (("default"      
-                     ("Org"
-                      (mode . org-mode))  
-                     ("Mail"
-                      (or
-                       (mode . message-mode)
-                       (mode . mail-mode)
-                       ))
-                     ("Helm"
-                      (name . "Helm"))
-                     ("Vobs"
-                      (filename . "/vobs/"))
-                     ("Scripts"
-                      (filename . "/home/aapollon/scripts"))
-                     ("Manpages"
-                      (mode . Man))))))
-
-      (add-hook 'ibuffer-mode-hook
-                (lambda ()
-                  (ibuffer-switch-to-saved-filter-groups "default")))
-      (define-key global-map (kbd "C-x C-b")                  'ibuffer)))
-
-
-#+END_SRC
-*** IRC
+*** Other
+**** IRC
 IRC major-mode. 
 #+BEGIN_SRC emacs-lisp
 (use-package erc
@@ -830,7 +1035,7 @@ IRC major-mode.
 
 #+END_SRC
 
-*** mu4e
+**** Mail 
 Mail client. 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
@@ -896,47 +1101,8 @@ Mail client.
       ;; don't keep message buffers around
       (setq message-kill-buffer-on-exit t)))
 #+END_SRC
-*** Undo Tree
-Treats your undo history like a tree, so no information is lost with undos and redos. 
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :ensure t
-    :diminish undo-tree-mode
-    :config
-    (progn
-      (global-undo-tree-mode)
-      (setq undo-tree-auto-save-history t)
-      (setq undo-tree-visualizer-timestamps t)
-      (setq undo-tree-visualizer-diff t)))
 
-#+END_SRC
-*** Dired
-An emacs file manager.
-#+BEGIN_SRC emacs-lisp
-(use-package dired+
-  :ensure t
-  :config
-  (setq dired-dwim-target t)) ;; Copy to other dired buffer by default
-
-#+END_SRC
-
-#+END_SRC
-*** Powershell
-Run powershell from windows.
-#+BEGIN_SRC emacs-lisp
-  (if (eq system-type 'windows-nt)
-      (use-package powershell
-        :ensure t))
-#+END_SRC
-*** Pandoc
-Pandoc-mode interfaces with pandoc, and allows for file conversions to formats both common and esoteric.
-#+BEGIN_SRC emacs-lisp
-(use-package pandoc-mode
-  :ensure t)
-
-#+END_SRC
-
-*** EMMS
+**** Media EMMS
 Music player within emacs interfacing with MPD (media player daemon). It works, but I don't know why I wouldn't use a dedicated program given how bad EMMS seems to me to be.
 #+BEGIN_SRC emacs-lisp
   (use-package emms
@@ -950,7 +1116,7 @@ Music player within emacs interfacing with MPD (media player daemon). It works, 
   (add-to-list 'emms-player-list 'emms-player-mpd)
 
 #+END_SRC
-*** Weather
+**** Weather
 #+BEGIN_SRC emacs-lisp
   (use-package weather-metno
     :ensure t
@@ -960,100 +1126,6 @@ Music player within emacs interfacing with MPD (media player daemon). It works, 
           weather-metno-location-longitude 74.00))
 #+END_SRC
 ** Multi-Language Tools
-*** Semantic
-Smart syntax analyxer, used for code navigation and code completion.
-#+BEGIN_SRC emacs-lisp
-  (use-package semantic
-   :ensure t
-   :config
-   (progn 
-     (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-     (add-to-list 'semantic-default-submodes 'global-semantic-idle-breadcrumbs-mode)
-     (semantic-mode 1)
-
-     (defvar semantic-tags-location-ring (make-ring 20)) 
-     (defun semantic-goto-definition (point)
-       "Goto definition using semantic-ia-fast-jump, save the pointer marker if tag is found"
-       (interactive "d")
-       (condition-case err
-           (progn
-             (ring-insert semantic-tags-location-ring (point-marker))
-             (semantic-ia-fast-jump point))
-         (error
-          ;;if not found remove the tag saved in the ring
-          (set-marker (ring-remove semantic-tags-location-ring 0) nil nil)
-          (signal (car err) (cdr err)))))
-
-     (defun semantic-pop-tag-mark ()
-       "popup the tag save by semantic-goto-definition"
-       (interactive)
-       (if (ring-empty-p semantic-tags-location-ring)
-           (message "%s" "No more tags available")
-         (let* ((marker (ring-remove semantic-tags-location-ring 0))
-                (buff (marker-buffer marker))
-                (pos (marker-position marker)))
-           (if (not buff)
-               (message "Buffer has been deleted")
-             (switch-to-buffer buff)
-             (goto-char pos))
-           (set-marker marker nil nil))))
-
-     (define-key semantic-mode-map (kbd "C-c a d")               'semantic-goto-definition)
-     (define-key semantic-mode-map (kbd "C-c a q")               'semantic-pop-tag-mark)
-     (define-key semantic-mode-map (kbd "C-c a e")               'senator-go-up-reference)
-     (define-key semantic-mode-map (kbd "C-c a s")               'semantic-symref)
-     (define-key semantic-mode-map (kbd "C-c a z")               'senator-previous-tag)
-     (define-key semantic-mode-map (kbd "C-c a x")               'senator-next-tag)))
-
-  (use-package semantic/bovine/gcc
-   :ensure semantic)
-
-#+END_SRC
-*** Xcscope
-Cscope is program that indexes and then allows for fast navigation of C projects, with limited support for other languages.
-#+BEGIN_SRC emacs-lisp
-  (use-package xcscope
-   :ensure t
-   :init
-   (progn 
-     (add-hook 'c-mode-hook 'cscope-minor-mode)
-     (add-hook 'c++-mode-hook 'cscope-minor-mode)
-     (setq cscope-initial-directory "/vobs/"))
-   :config
-   (global-set-key (kbd "C-c z")		'cscope-minor-mode)
-   (define-key cscope-minor-mode-keymap (kbd "C-c s q")    'cscope-pop-mark))
-
-#+END_SRC
-
-*** Ggtags
-Gtags, or GNU Global, is a more comprehensive tagging program, theoretically supporting more languages and whatnot. Ggtags is an emacs package for interfacing with it.
-#+BEGIN_SRC emacs-lisp
-  (use-package ggtags
-   :ensure t
-   :init
-   (progn 
-     (defun create-tags (dir-name)
-       "Create tags file."
-       (interactive "DDirectory: ")
-       (eshell-command 
-        (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name))))
-   :config
-   (progn
-     (global-set-key (kbd "C-c x")		'ggtags-mode) 
-     (define-key ggtags-mode-map (kbd "C-c s g")             'ggtags-find-tag-dwim)
-     (define-key ggtags-mode-map (kbd "C-c s d")             'ggtags-find-definition)
-     (define-key ggtags-mode-map (kbd "C-c s f")             'ggtags-find-file)
-     (define-key ggtags-mode-map (kbd "C-c s s")             'ggtags-find-reference)
-     (define-key ggtags-mode-map (kbd "C-c s q")             'ggtags-prev-mark)
-     (define-key ggtags-mode-map (kbd "C-c s w")             'ggtags-next-mark)
-     (define-key ggtags-mode-map (kbd "C-c s t")             'ggtags-grep)))
-#+END_SRC
 *** Syntax Checking
 Performs syntax checking and complains if errors occur.
 #+BEGIN_SRC emacs-lisp
@@ -1210,49 +1282,8 @@ This should provide highlighting to a ton of different miscellaneous syntaxes.
 
 #+END_SRC
 ** Text Processing Tools
-*** Visual-Regexp on Steroids
-This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
-#+BEGIN_SRC emacs-lisp
-    (use-package visual-regexp-steroids
-      :ensure t
-      :config
-      (progn 
-        (global-set-key (kbd "C-c r r")     'vr/replace)
-        (global-set-key (kbd "C-c r q")     'vr/query-replace)
-        (global-set-key (kbd "C-s")         'vr/isearch-forward)
-        (global-set-key (kbd "C-r")         'vr/isearch-backward)
-        (global-set-key (kbd "C-c r s")     'vr/mc-mark)))
-#+END_SRC
-
-*** Semantic Expand Region
-Allows for the semantic expansion and contraction of the region. 
-#+BEGIN_SRC emacs-lisp
-  (use-package expand-region
-    :ensure t
-    :config
-    (progn
-      (global-unset-key (kbd "C-."))
-      (defhydra hydra-expand-region (global-map "C-.")
-        "expand-region"
-        ("." er/expand-region)
-        ("," er/contract-region))))
-#+END_SRC
-*** Writable grep
-Allows to modify the lines in a grep buffer.
-#+BEGIN_SRC emacs-lisp
-  (use-package wgrep
-    :ensure t)
-
-#+END_SRC
-*** Clean aident
-Remove whitespace after RETing 2nd time in a row. 
-#+BEGIN_SRC emacs-lisp
-(use-package clean-aindent-mode
-  :init
-  (add-hook 'prog-mode-hook 'clean-aindent-mode))
-
-#+END_SRC
-*** yasnippet
+*** Completion
+**** yasnippet
 Snippeting.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
@@ -1261,7 +1292,7 @@ Snippeting.
     :init
     (yas-global-mode 1))
 #+END_SRC
-*** Abbreviations 
+**** Abbreviations 
 Abbreviations. Disabled because not very useful, and read-abbrev-file gives me errors on windows.
 #+BEGIN_SRC emacs-lisp
   ;; (use-package abbrev
@@ -1275,7 +1306,7 @@ Abbreviations. Disabled because not very useful, and read-abbrev-file gives me e
   ;;    (setq save-abbrevs t)))
 
 #+END_SRC
-*** Hippie Expansion
+**** Hippie Expansion
 Searches for similar phrases in history, open buffers, abbreviations, etc, and cycles through them.
 #+BEGIN_SRC emacs-lisp
 (use-package hippie-exp
@@ -1284,30 +1315,28 @@ Searches for similar phrases in history, open buffers, abbreviations, etc, and c
   (key-chord-define-global "zx"		'hippie-expand))
 
 #+END_SRC
-*** Ace Jump
-Allows for jumping around based on the first letter of characters, words and lines.
-
+*** Multi-edit
+**** Visual-Regexp on Steroids
+This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
 #+BEGIN_SRC emacs-lisp
-  (use-package ace-jump-mode
-    :ensure t
-    :config
-    (progn
-      (eval-after-load "ace-jump-mode"
-        '(ace-jump-mode-enable-mark-sync))
-      (global-set-key (kbd "C-z SPC")    'ace-jump-word-mode)))
+    (use-package visual-regexp-steroids
+      :ensure t
+      :config
+      (progn 
+        (global-set-key (kbd "C-c r r")     'vr/replace)
+        (global-set-key (kbd "C-c r q")     'vr/query-replace)
+        (global-set-key (kbd "C-s")         'vr/isearch-forward)
+        (global-set-key (kbd "C-r")         'vr/isearch-backward)
+        (global-set-key (kbd "C-c r s")     'vr/mc-mark)))
 #+END_SRC
 
-
-Zap up to a character, ace-jump style. dwim goes to first instance, regular lets you specify.
+**** Writable grep
+Allows to modify the lines in a grep buffer.
 #+BEGIN_SRC emacs-lisp
-  (use-package ace-jump-zap
-    :ensure ace-jump-zap
-    :config
-    (progn
-      (key-chord-define-global "jd"           'ace-jump-zap-up-to-char-dwim)
-      (key-chord-define-global "jz"           'ace-jump-zap-up-to-char)))
+  (use-package wgrep
+    :ensure t)
 #+END_SRC
-*** Multiple Cursors
+**** Multiple Cursors
 Powerful plugin that generates multiple cursors, allowing for easy rectangular editing, application of functions at several places at once, etc. Faster and more immediate than macros.
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
@@ -1328,23 +1357,15 @@ Powerful plugin that generates multiple cursors, allowing for easy rectangular e
       (global-set-key (kbd "C-x c s") 'set-rectangular-region-anchor)))
 
 #+END_SRC
-*** Iedit
+**** Iedit
 Fits a similar niche to multiple cursors, but slightly less powerful. Faster; noticeable when modifying many instances of the same variable simultaneously. 
 #+BEGIN_SRC emacs-lisp
 (use-package iedit
   :ensure t)
 
 #+END_SRC
-*** String Inflection
-Allows switching between camelcase, underscore, etc.
-#+BEGIN_SRC emacs-lisp
-  (use-package string-inflection
-    :ensure t
-    :config
-    (key-chord-define-global ",." 'string-inflection-cycle))
-#+END_SRC
-
 *** Version Control
+**** Magit
 Magit - the best interface for git. When it works. 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -1355,11 +1376,12 @@ Magit - the best interface for git. When it works.
       (autoload 'magit-status "magit" nil t)
       (define-key global-map (kbd "C-c g")                        'magit-status)))
 #+END_SRC
+**** VC
 VC for other things.
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g a")            'vc-next-action)
 #+END_SRC
-
+**** Time Machine
 Git-Timemachine allows for easy iteration through past versions of a file.
 #+BEGIN_SRC emacs-lisp
 (use-package git-timemachine
@@ -1367,7 +1389,7 @@ Git-Timemachine allows for easy iteration through past versions of a file.
   :config
   (global-set-key (kbd "C-x g m")            'git-timemachine))
 #+END_SRC
-
+**** Git-Gutter
 Git-gutter shows modifications since the last commit with pluses and minuses on each line.
 #+BEGIN_SRC emacs-lisp
 (use-package git-gutter+
@@ -1395,4 +1417,27 @@ Git-gutter shows modifications since the last commit with pluses and minuses on 
 (use-package git-gutter-fringe+
   :ensure t)
 
+#+END_SRC
+*** Other
+**** Semantic Expand Region
+Allows for the semantic expansion and contraction of the region. 
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :config
+    (progn
+      (global-unset-key (kbd "C-."))
+      (defhydra hydra-expand-region (global-map "C-.")
+        "expand-region"
+        ("." er/expand-region)
+        ("," er/contract-region))))
+#+END_SRC
+
+**** String Inflection
+Allows switching between camelcase, underscore, etc.
+#+BEGIN_SRC emacs-lisp
+  (use-package string-inflection
+    :ensure t
+    :config
+    (key-chord-define-global ",." 'string-inflection-cycle))
 #+END_SRC
