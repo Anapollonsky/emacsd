@@ -379,7 +379,6 @@ Helm is a powerful package framework allowing for rapid text-based narrowing of 
       (global-set-key (kbd "C-c u")       'helm-locate)
       (global-set-key (kbd "C-c o")       'helm-occur)))
 
-
 #+END_SRC
 
 Vim-like helm interface to do some advanced actions.
@@ -640,6 +639,17 @@ Prettifies the mode-line.
   
 #+END_SRC
 *** Out-Buffer Navigation
+**** Silver-Searcher
+Interfaces to Ag, a non-indexing code searcher, like grep or awk but faster. Requires that Ag be installed.
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-ag
+   :ensure t
+   :config
+   (progn
+     (setq helm-ag-insert-at-point 'symbol)
+     (global-set-key (kbd "C-c y a") 'helm-ag)
+     (global-set-key (kbd "C-c y q") 'helm-ag-pop-stack)))
+#+END_SRC
 **** ibuffer
 Major mode for manipulating buffers. Create custom categories, save them.
 #+BEGIN_SRC emacs-lisp
@@ -1125,57 +1135,6 @@ Music player within emacs interfacing with MPD (media player daemon). It works, 
           weather-metno-location-latitude 40.71
           weather-metno-location-longitude 74.00))
 #+END_SRC
-** Multi-Language Tools
-*** Syntax Checking
-Performs syntax checking and complains if errors occur.
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck-tip 
-    :ensure t
-    :config
-    (progn
-      '(custom-set-variables
-        '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
-
-  (use-package flycheck
-   :diminish flycheck-mode
-   :ensure t
-   :init
-   (progn
-     (add-hook 'after-init-hook 'global-flycheck-mode)
-     (flycheck-tip-use-timer 'verbose)))
-#+END_SRC
-
-*** Silver-Searcher
-Interfaces to Ag, a non-indexing code searcher, like grep or awk but faster. Requires that Ag be installed.
-#+BEGIN_SRC emacs-lisp
-  (use-package helm-ag
-   :ensure t
-   :config
-   (progn
-     (setq helm-ag-insert-at-point 'symbol)
-     (global-set-key (kbd "C-c y a") 'helm-ag)
-     (global-set-key (kbd "C-c y q") 'helm-ag-pop-stack)))
-#+END_SRC
-*** Company Completion
-Company Code completion framework. 
-#+BEGIN_SRC emacs-lisp
-(use-package company
-  :ensure t
-  :diminish company-mode
-  :config
-  (progn 
-    (global-company-mode)
-    (setq company-idle-delay nil)
-    (key-chord-define-global "zc"		'company-complete)))    
-#+END_SRC
-*** Aggressive Indent
-Keeps your code continuously indented as you type. Visually distracting, but useful.
-#+BEGIN_SRC emacs-lisp
-  (use-package aggressive-indent
-    :ensure t
-    :config
-    (global-set-key (kbd "C-c n")           'aggressive-indent-mode))
-#+END_SRC
 ** Language-Specific Tools
 *** C
 Set indentation size to 4 by default. Otherwise emacs auto-indents my c code odd.
@@ -1315,6 +1274,18 @@ Searches for similar phrases in history, open buffers, abbreviations, etc, and c
   (key-chord-define-global "zx"		'hippie-expand))
 
 #+END_SRC
+**** Company
+Company Code completion framework. 
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :diminish company-mode
+  :config
+  (progn 
+    (global-company-mode)
+    (setq company-idle-delay nil)
+    (key-chord-define-global "zc"		'company-complete)))    
+#+END_SRC
 *** Multi-edit
 **** Visual-Regexp on Steroids
 This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
@@ -1440,4 +1411,30 @@ Allows switching between camelcase, underscore, etc.
     :ensure t
     :config
     (key-chord-define-global ",." 'string-inflection-cycle))
+#+END_SRC
+**** Aggressive Indent
+Keeps your code continuously indented as you type. Visually distracting, but useful.
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c n")           'aggressive-indent-mode))
+#+END_SRC
+**** Syntax Checking
+Performs syntax checking and complains if errors occur.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-tip 
+    :ensure t
+    :config
+    (progn
+      '(custom-set-variables
+        '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages))))
+
+  (use-package flycheck
+   :diminish flycheck-mode
+   :ensure t
+   :init
+   (progn
+     (add-hook 'after-init-hook 'global-flycheck-mode)
+     (flycheck-tip-use-timer 'verbose)))
 #+END_SRC
