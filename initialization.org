@@ -29,6 +29,11 @@ Allows for more complicated key combinations for commands, such as "z-d".
   :ensure t)
 #+END_SRC
 
+Make C-z a new modifier prefix.
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+END_SRC
+
 Searches for unbound key combinations. Good to have, but not something I use often.
 #+BEGIN_SRC emacs-lisp
   (use-package unbound
@@ -276,7 +281,6 @@ Open a file as sudo.
     (interactive "FSudo Find File: ")
     (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
       (find-file tramp-file-name)))
-  (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C-x C-F") 'sudo-find-file)
 #+END_SRC
 

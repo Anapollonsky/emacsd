@@ -1,3 +1,4 @@
+;; Function to check whether emacs can connect to websites to verify internet connection.
 (require 'cl-lib)
 (defun can-retrieve-packages ()
   (cl-loop for url in '("http://melpa.milkbox.net/packages/"
@@ -21,8 +22,11 @@
 (package-initialize)
 (package-refresh-contents)
 
-;; Single package to auto-install package if not present. Only used to bootstrap use-package.
+;; Bootstrap use-package and dependencies.
+(or (package-installed-p 'diminish) (package-install 'diminish))
+(or (package-installed-p 'bind-key) (package-install 'bind-key))
 (or (package-installed-p 'use-package) (package-install 'use-package))
+         
 (require 'use-package)
 
 ;; Proceed with rest of initialization
