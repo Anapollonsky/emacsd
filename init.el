@@ -1,26 +1,26 @@
+
 ;; Function to check whether emacs can connect to websites to verify internet connection.
-(require 'cl-lib)
-(defun can-retrieve-packages ()
-  (cl-loop for url in '("http://melpa.milkbox.net/packages/"
-                        "http://elpa.gnu.org/packages/")
-           do (condition-case e
-                  (kill-buffer (url-retrieve-synchronously url))
-                (error (cl-return)))
-           finally (cl-return t)))
-
-
-;; Work Proxy
-(when (not (can-retrieve-packages))
-(setq url-proxy-services '(("no_proxy" . "work\\.com")
-                           ("http" . "global.proxy.lucent.com:8000"))) )
+;; Hangs on needproxy + GUI, so don't run it if graphical, only update if non-gui.
 
 ;; Package repositories
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
+;; (condition-case nil
+;;     (progn 
+;;       (shell-copy-environment-variable "http_proxy")
+;;       (setq url-proxy-services '(("no_proxy" . "work\\.com")
+;;                               ("http" . (getenv "http_proxy"))))
+;;       (package-refresh-contents))
+;;   (error nil))
+
+(setq url-proxy-services '(("no_proxy" . "work\\.com")
+			   ("http" . "proxy.global.lucent.com:8000")))
+
+(package-refresh-contents)
 (setq package-enable-at-startup nil)
 (package-initialize)
-(package-refresh-contents)
+
 
 ;; Bootstrap use-package and dependencies.
 (or (package-installed-p 'diminish) (package-install 'diminish))
