@@ -250,6 +250,17 @@ Jump to matching parentheses, forward or back.
 (key-chord-define-global "jp"		'goto-match-paren)
 #+END_SRC
 
+Open a file as sudo.
+#+BEGIN_SRC emacs-lisp
+  (defun sudo-find-file (file-name)
+    "Like find file, but opens the file as root."
+    (interactive "FSudo Find File: ")
+    (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+      (find-file tramp-file-name)))
+  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-x C-F") 'sudo-find-file)
+#+END_SRC
+
 When called interactively with no active region, kill a single line instead.
 #+BEGIN_SRC emacs-lisp
   (defadvice kill-region (before slick-cut activate compile)
@@ -309,9 +320,9 @@ Helm is a powerful package framework allowing for rapid text-based narrowing of 
             helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
             helm-ff-file-name-history-use-recentf t
             helm-ff-skip-boring-files t)
-      (helm-mode))
+      (helm-mode)
 
-    :config
+      :config)
     (progn 
       (global-set-key (kbd "M-x")         'helm-M-x)
       (global-set-key (kbd "M-y")         'helm-show-kill-ring)
@@ -336,8 +347,29 @@ Helm-swoop allows for fast navigation of lines in a document. Similar to helm-oc
      (global-set-key (kbd "C-x y")            'helm-swoop))
 
   )
-
 #+END_SRC
+
+Browse packages in helm.
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-package
+    :ensure t
+    :config
+    (progn
+      (global-set-key (kbd "C-z p") 'helm-package)))
+#+END_SRC
+
+Browse modes in helm.
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-mode-manager
+    :ensure t
+    :config
+    (progn
+      (global-set-key (kbd "C-z n") 'helm-enable-minor-mode)
+      (global-set-key (kbd "C-z m") 'helm-switch-major-mode)))
+#+END_SRC
+
+
+
 *** Winner-mode
 Go back and forth in buffer and window configuration history. A bit messy with helm, but worth it.
 #+BEGIN_SRC emacs-lisp
@@ -1067,6 +1099,13 @@ Allows for the semantic expansion and contraction of the region.
         ("." er/expand-region)
         ("," er/contract-region))))
 #+END_SRC
+*** Writable grep
+Allows to modify the lines in a grep buffer.
+#+BEGIN_SRC emacs-lisp
+  (use-package wgrep
+    :ensure t)
+
+#+END_SRC
 *** Clean aident
 Remove whitespace after RETing 2nd time in a row. 
 #+BEGIN_SRC emacs-lisp
@@ -1100,7 +1139,7 @@ Abbreviations. Disabled because not very useful, and read-abbrev-file gives me e
 #+END_SRC
 *** Hippie Expansion
 Searches for similar phrases in history, open buffers, abbreviations, etc, and cycles through them.
-    #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (use-package hippie-exp
   :ensure t
   :config
