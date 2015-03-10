@@ -1288,9 +1288,20 @@ Company Code completion framework.
 #+END_SRC
 *** Multi-edit
 **** Visual-Regexp on Steroids
-This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
+This package does two things: provides visual feedback to regexp-tools like replace, and replaces the built-in emacs regexp engine with another, the default being Python. The Python part is not done if the system type is windows. This is nice, because the emacs regexp engine treats `[' as the raw character, and `\[' as the regexp grouping special character (and similarly with `('). This messes with your head if you work with python a lot, so better keep it consistent.
 #+BEGIN_SRC emacs-lisp
-    (use-package visual-regexp-steroids
+  (if
+      (not (eq system-type 'windows-nt))
+      (use-package visual-regexp-steroids
+        :ensure t
+        :config
+        (progn 
+          (global-set-key (kbd "C-c r r")     'vr/replace)
+          (global-set-key (kbd "C-c r q")     'vr/query-replace)
+          (global-set-key (kbd "C-s")         'vr/isearch-forward)
+          (global-set-key (kbd "C-r")         'vr/isearch-backward)
+          (global-set-key (kbd "C-c r s")     'vr/mc-mark)))
+    (use-package visual-regexp
       :ensure t
       :config
       (progn 
@@ -1298,7 +1309,7 @@ This package does two things: provides visual feedback to regexp-tools like repl
         (global-set-key (kbd "C-c r q")     'vr/query-replace)
         (global-set-key (kbd "C-s")         'vr/isearch-forward)
         (global-set-key (kbd "C-r")         'vr/isearch-backward)
-        (global-set-key (kbd "C-c r s")     'vr/mc-mark)))
+        (global-set-key (kbd "C-c r s")     'vr/mc-mark))))
 #+END_SRC
 
 **** Writable grep
