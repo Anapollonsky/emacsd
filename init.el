@@ -15,7 +15,7 @@
 ;;   (error nil))
 
 (setq url-proxy-services '(("no_proxy" . "work\\.com")
-			   ("http" . "proxy.global.lucent.com:8000")))
+			   ("http" . "global.proxy.lucent.com:8000")))
 
 (package-refresh-contents)
 (setq package-enable-at-startup nil)
@@ -25,8 +25,7 @@
 ;; Bootstrap use-package and dependencies.
 (or (package-installed-p 'diminish) (package-install 'diminish))
 (or (package-installed-p 'bind-key) (package-install 'bind-key))
-(or (package-installed-p 'use-package) (package-install 'use-package))
-         
+(or (package-installed-p 'use-package) (package-install 'use-package))         
 (require 'use-package)
 
 ;; Proceed with rest of initialization
