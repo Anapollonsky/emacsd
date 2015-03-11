@@ -810,7 +810,7 @@ Cscope is program that indexes and then allows for fast navigation of C projects
    (progn 
      (add-hook 'c-mode-hook 'cscope-minor-mode)
      (add-hook 'c++-mode-hook 'cscope-minor-mode)
-     (setq cscope-initial-directory "/vobs/"))
+     (setq cscope-initial-directory "/vobs/linuxrru/"))
    :config
    (global-set-key (kbd "C-c z")		'cscope-minor-mode)
    (define-key cscope-minor-mode-keymap (kbd "C-c s q")    'cscope-pop-mark))
