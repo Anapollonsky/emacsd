@@ -867,21 +867,16 @@ Zap up to a character, ace-jump style. dwim goes to first instance, regular lets
 #+END_SRC
 **** Character Navigation
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-charnav (global-map "C-b")
-    "char-nav"
+  (defhydra hydra-charnav (global-map "C-n")
+    "navigation"
     ("h" left-char)
     ("j" next-line)
     ("k" previous-line)
-    ("l" right-char))
-#+END_SRC
-**** Fast Character Navigation
-#+BEGIN_SRC emacs-lisp
-  (defhydra hydra-parnav (global-map "C-n")
-    "par-nav"
-    ("h" left-word)
-    ("j" forward-paragraph)
-    ("k" backward-paragraph)
-    ("l" right-word))
+    ("l" right-char)
+    ("C-h" left-word)
+    ("C-j" forward-paragraph)
+    ("C-k" backward-paragraph)
+    ("C-l" right-word))
 #+END_SRC
 
 **** Jump Lines
