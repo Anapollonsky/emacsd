@@ -143,6 +143,17 @@ Good dired help menu with ?.
   (add-hook 'dired-mode-hook 'discover-mode))
 #+END_SRC
 
+*** Hydra Controller
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-top (:color blue)
+    "top"
+    ("w" hydra-windmove/body)
+    ("n" hydra-charnav/body)
+    ("q" nil)
+    ("<escape>" nil))
+  (global-set-key (kbd "<escape>")     'hydra-top/body)
+
+#+END_SRC
 *** Other
 **** Overshowing buffers
 Buffers that should appear over the current buffer when created, instead of in a new window.
@@ -380,52 +391,6 @@ Helm is a powerful package framework allowing for rapid text-based narrowing of 
       (global-set-key (kbd "C-c o")       'helm-occur)))
 
 #+END_SRC
-
-Vim-like helm interface to do some advanced actions.
-#+BEGIN_SRC emacs-lisp
-(defhydra helm-like-unite ()
-  "
-  ^ ^N^a^v^ ^    ^A^ction         ^H^elm
---^-^-^-^-^-^----^-^--------------^-^-^-^--------------
-  ^ ^ _k_ ^ ^    _e_dit           _/_search
-  _h_ ^ ^ _l_    _d_elete buffer  _?_help
-  ^ ^ _j_ ^ ^    _v_iew           _t_: toggle marks
-  ^ ^ ^ ^ ^ ^    _f_ollow         _i_: Cancel
-  ^ ^ ^ ^ ^ ^    mark_a_ll        _p_: Only this source
-                          _{_: Enlarge window
-"
-  ("?" helm-help nil)
-  ("<escape>" keyboard-escape-quit nil)
-  ("<SPC>" helm-toggle-visible-mark "mark")
-  ("a" helm-toggle-all-marks nil)
-  ("e" helm-swoop-edit nil)
-  ;; not sure if there's a better way to do this
-  ("/" (lambda ()
-          (interactive)
-          (execute-kbd-macro [?\C-s])) nil)
-  ("v" helm-execute-persistent-action nil)
-  ("d" helm-buffer-run-kill-persistent nil)
-  ("g" helm-beginning-of-buffer nil)
-  ("G" helm-end-of-buffer nil)
-  ("f" helm-follow-mode nil)
-  ("j" helm-next-line nil)
-  ("k" helm-previous-line nil)
-  ("t" helm-toggle-all-marks nil)
-  ("y" helm-yank-text-at-point nil)
-  ("p" helm-show-all-in-this-source-only nil)
-  ("P" helm-display-all-sources nil)
-  ("C-e" helm-scroll-other-window nil)
-  ("C-y" helm-scroll-other-window-down nil)
-  ("C-d" (helm-next-line 10) nil)
-  ("C-u" (helm-previous-line 10) nil)
-  ("h" helm-previous-source nil)
-  ("l" helm-next-source nil)
-  ("}" helm-narrow-window nil)
-  ("{" helm-enlarge-window nil)
-  ("i" nil nil))
-(define-key helm-map (kbd "<escape>") 'helm-like-unite/body)
-
-#+END_SRC
 Helm-swoop allows for fast navigation of lines in a document. Similar to helm-occur.
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
@@ -498,6 +463,7 @@ Navigate between open windows, split windows, and delete windows.
         ("y" split-window-below)
         ("<backspace>" delete-window)
         ("q" nil :color blue)
+        ("<escape>" hydra-top/body :color blue)
         ("n" hydra-charnav/body :color blue))
       (global-set-key (kbd "C-z w")     'hydra-windmove/body)))
 
@@ -880,10 +846,14 @@ Zap up to a character, ace-jump style. dwim goes to first instance, regular lets
     ("C-k" backward-paragraph)
     ("C-l" right-word)
     ("q" nil :color blue)
+    ("<escape>" hydra-top/body :color blue)
     ("w" hydra-windmove/body :color blue))
   (global-set-key (kbd "C-n")   'hydra-charnav/body)
 
 #+END_SRC
+
+#+RESULTS:
+: hydra-charnav/body
 
 **** Jump Lines
 #+BEGIN_SRC emacs-lisp
