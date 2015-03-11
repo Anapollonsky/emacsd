@@ -149,6 +149,7 @@ Good dired help menu with ?.
     "top"
     ("w" hydra-windmove/body)
     ("n" hydra-charnav/body)
+    ("s" hydra-splitter/body)
     ("q" nil)
     ("<escape>" nil))
   (global-set-key (kbd "<escape>")     'hydra-top/body)
@@ -462,9 +463,10 @@ Navigate between open windows, split windows, and delete windows.
         ("x" split-window-right)
         ("y" split-window-below)
         ("<backspace>" delete-window)
-        ("q" nil :color blue)
-        ("<escape>" hydra-top/body :color blue)
-        ("n" hydra-charnav/body :color blue))
+        ("q" nil nil :color blue)
+        ("<escape>" hydra-top/body nil :color blue)
+        ("n" hydra-charnav/body nil :color blue)
+        ("s" hydra-splitter/body nil :color blue))
       (global-set-key (kbd "C-z w")     'hydra-windmove/body)))
 
 
@@ -515,14 +517,20 @@ Resize text.
 **** Resize windows
 Resize windows
 #+BEGIN_SRC emacs-lisp
-      (defhydra hydra-splitter (global-map "C-z s")
-        "splitter"
-        ("h" hydra-move-splitter-left)
-        ("j" hydra-move-splitter-down)
-        ("k" hydra-move-splitter-up)
-        ("l" hydra-move-splitter-right))
+  (defhydra hydra-splitter (global-map "C-z s")
+    "splitter"
+    ("h" hydra-move-splitter-left)
+    ("j" hydra-move-splitter-down)
+    ("k" hydra-move-splitter-up)
+    ("l" hydra-move-splitter-right)
+    ("=" balance-windows)
+    ("q" nil nil :color blue)
+    ("<escape>" hydra-top/body nil :color blue)
+    ("w" hydra-windmove/body nil :color blue)
+    ("n" hydra-charnav/body nil :color blue))
 
 #+END_SRC
+
 *** Buffer Contents
 **** Paste highlighting
 Highlight a recently-pasted region. 
@@ -845,15 +853,13 @@ Zap up to a character, ace-jump style. dwim goes to first instance, regular lets
     ("C-j" forward-paragraph)
     ("C-k" backward-paragraph)
     ("C-l" right-word)
-    ("q" nil :color blue)
-    ("<escape>" hydra-top/body :color blue)
-    ("w" hydra-windmove/body :color blue))
+    ("q" nil nil :color blue)
+    ("<escape>" hydra-top/body nil :color blue)
+    ("w" hydra-windmove/body nil :color blue)
+    ("s" hydra-splitter/body nil :color blue))
   (global-set-key (kbd "C-n")   'hydra-charnav/body)
 
 #+END_SRC
-
-#+RESULTS:
-: hydra-charnav/body
 
 **** Jump Lines
 #+BEGIN_SRC emacs-lisp
