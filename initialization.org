@@ -484,25 +484,28 @@ Go back and forth in buffer and window configuration history. A bit messy with h
 **** Move between windows
 Navigate between open windows, split windows, and delete windows.
 #+BEGIN_SRC emacs-lisp
-    (use-package windmove
-      :ensure t
-      :config
-      (progn        
-        (defhydra hydra-windmove (global-map "C-z w")
-          "windmove"
-          ("h" windmove-left)
-          ("j" windmove-down)
-          ("k" windmove-up)
-          ("l" windmove-right)
-          ("x" split-window-right)
-          ("y" split-window-below)
-          ("<backspace>" delete-window))
-  ))
+  (use-package windmove
+    :ensure t
+    :config
+    (progn        
+      (defhydra hydra-windmove (:color pink)
+        "windmove"
+        ("h" windmove-left)
+        ("j" windmove-down)
+        ("k" windmove-up)
+        ("l" windmove-right)
+        ("x" split-window-right)
+        ("y" split-window-below)
+        ("<backspace>" delete-window)
+        ("q" nil :color blue)
+        ("n" hydra-charnav/body :color blue))
+      (global-set-key (kbd "C-z w")     'hydra-windmove/body)))
 
-    (use-package framemove
-      :ensure t
-      :config
-      (setq framemove-hook-into-windmove t))
+
+  (use-package framemove
+    :ensure t
+    :config
+    (setq framemove-hook-into-windmove t))
 #+END_SRC
 
 **** Swap windows
@@ -679,7 +682,6 @@ Major mode for manipulating buffers. Create custom categories, save them.
                 (lambda ()
                   (ibuffer-switch-to-saved-filter-groups "default")))
       (define-key global-map (kbd "C-x C-b")                  'ibuffer)))
-
 
 #+END_SRC
 **** Projectile
@@ -867,7 +869,7 @@ Zap up to a character, ace-jump style. dwim goes to first instance, regular lets
 #+END_SRC
 **** Character Navigation
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-charnav (global-map "C-n")
+  (defhydra hydra-charnav (:color pink)
     "navigation"
     ("h" left-char)
     ("j" next-line)
@@ -876,7 +878,11 @@ Zap up to a character, ace-jump style. dwim goes to first instance, regular lets
     ("C-h" left-word)
     ("C-j" forward-paragraph)
     ("C-k" backward-paragraph)
-    ("C-l" right-word))
+    ("C-l" right-word)
+    ("q" nil :color blue)
+    ("w" hydra-windmove/body :color blue))
+  (global-set-key (kbd "C-n")   'hydra-charnav/body)
+
 #+END_SRC
 
 **** Jump Lines
